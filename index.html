@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SXM Digital Agency — Agence digitale à Saint-Martin</title>
+<meta name="description" content="Sites web, branding, SEO local et social media pour les entreprises de Saint-Martin. Agence digitale 100% locale, bilingue FR/EN.">
+<!--
+  Images placeholder (Unsplash) :
+  - section agence : photo-1507525428034-b723cf961d3e (plage caraïbe)
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --bg:#FAF6EF;              /* crème */
+  --surface:#FFFFFF;
+  --surface-alt:#F3EDE1;
+  --surface-hover:#FFFFFF;
+  --border:rgba(14,94,89,.14);
+  --border-hover:rgba(14,94,89,.35);
+  --text:#1C1C1C;            /* anthracite — texte courant */
+  --text-secondary:#44443E;
+  --text-tertiary:#6B6A61;
+  --primary:#0E5E59;         /* vert lagon profond — titres, boutons, liens */
+  --primary-hover:#0A4946;
+  --accent:#FF6B5B;          /* corail — CTA, hover, gros éléments uniquement */
+  --accent-hover:#F2543F;
+  --bg-rgb:250,246,239;
+  --surface-rgb:255,255,255;
+  --primary-rgb:14,94,89;
+  --accent-rgb:255,107,91;
+  --text-rgb:28,28,28;
+  --success:#1A7F4E;
+  --error:#C2362B;
+  --warning:#B45309;
+  --font-display:'Sora','Inter',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,-apple-system,sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+
+/* ============ BASE ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font:400 1.0625rem/1.7 var(--font-body);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+h1,h2,h3{font-family:var(--font-display);color:var(--primary)}
+img{display:block;max-width:100%}
+::selection{background:rgba(var(--primary-rgb),.18);color:var(--text)}
+
+.container{max-width:1200px;margin:0 auto;padding:0 clamp(1.25rem,5vw,2.5rem)}
+.section{padding:clamp(5rem,10vw,8.5rem) 0}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font:600 .8125rem/1.4 var(--font-body);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--primary);padding:.5rem 1rem;border-radius:999px;
+  border:1px solid rgba(var(--primary-rgb),.25);background:rgba(var(--primary-rgb),.06);
+}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
+.section-head{max-width:760px;margin-bottom:3.5rem}
+.section-head h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;line-height:1.15;letter-spacing:-.02em;margin:1.1rem 0 .9rem}
+.section-head p{color:var(--text-secondary)}
+
+/* ============ NAV ============ */
+.nav{position:fixed;inset:0 0 auto 0;z-index:100;padding:1.25rem 0;border-bottom:1px solid transparent;
+  transition:padding .3s,background .3s,border-color .3s}
+.nav.scrolled{padding:.75rem 0;background:rgba(var(--bg-rgb),.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom-color:var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.logo{font:800 1.25rem var(--font-display);color:var(--primary);text-decoration:none;letter-spacing:-.02em;white-space:nowrap}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:clamp(1.1rem,2.5vw,2rem);list-style:none}
+.link{color:var(--text-secondary);text-decoration:none;font-size:.95rem;position:relative;transition:color .25s;padding:.5rem 0;white-space:nowrap}
+.link::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--accent);
+  transform:scaleX(0);transform-origin:right;transition:transform .3s var(--ease)}
+.link:hover,.link:focus-visible{color:var(--primary)}
+.link:hover::after,.link:focus-visible::after{transform:scaleX(1);transform-origin:left}
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:48px;height:48px;
+  background:transparent;border:1px solid var(--border-hover);border-radius:12px;cursor:pointer;align-items:center}
+.nav-burger span{display:block;width:20px;height:2px;background:var(--primary);transition:transform .3s var(--ease),opacity .3s}
+.nav-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;z-index:99;background:rgba(var(--bg-rgb),.98);display:flex;
+  flex-direction:column;align-items:center;justify-content:center;gap:2rem;
+  opacity:0;pointer-events:none;transition:opacity .3s}
+.mobile-menu.open{opacity:1;pointer-events:auto}
+.mobile-menu a{font:700 1.6rem var(--font-display);color:var(--text);text-decoration:none}
+.mobile-menu a:hover{color:var(--primary)}
+
+/* ============ BUTTONS ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  font:600 1rem/1 var(--font-display);padding:1rem 1.75rem;border-radius:999px;
+  cursor:pointer;border:1px solid transparent;text-decoration:none;min-height:48px;
+  transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-color .25s,color .25s}
+.btn-primary{background:var(--accent);color:var(--text)}
+.btn-primary:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 12px 32px rgba(var(--accent-rgb),.35)}
+.btn-primary:active{transform:translateY(0);box-shadow:0 4px 12px rgba(var(--accent-rgb),.25)}
+.btn-primary:focus-visible{outline:2px solid var(--primary);outline-offset:3px}
+.btn-ghost{background:transparent;color:var(--primary);border-color:var(--border-hover)}
+.btn-ghost:hover{border-color:var(--primary);background:rgba(var(--primary-rgb),.06);transform:translateY(-2px)}
+.btn-ghost:active{transform:translateY(0)}
+.btn-ghost:focus-visible{outline:2px solid var(--primary);outline-offset:3px}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:8.5rem 0 5rem;overflow:hidden}
+.aurora{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.aurora i{position:absolute;border-radius:50%;will-change:transform}
+.aurora i:nth-child(1){
+  width:60vw;height:60vw;min-width:540px;min-height:540px;left:-12%;top:-22%;
+  background:radial-gradient(circle,rgba(var(--primary-rgb),.10) 0%,rgba(var(--primary-rgb),.03) 45%,transparent 70%);
+  animation:drift1 26s ease-in-out infinite alternate}
+.aurora i:nth-child(2){
+  width:48vw;height:48vw;min-width:420px;min-height:420px;right:-14%;bottom:-26%;
+  background:radial-gradient(circle,rgba(var(--accent-rgb),.12) 0%,rgba(var(--accent-rgb),.04) 45%,transparent 70%);
+  animation:drift2 32s ease-in-out infinite alternate}
+@keyframes drift1{from{transform:translate(0,0) scale(1)}to{transform:translate(8vw,6vh) scale(1.15)}}
+@keyframes drift2{from{transform:translate(0,0) scale(1.1)}to{transform:translate(-6vw,-8vh) scale(.95)}}
+.hero-spot{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .5s;
+  background:radial-gradient(560px circle at var(--mx,50%) var(--my,40%),rgba(var(--primary-rgb),.06),transparent 70%)}
+.hero.spot-on .hero-spot{opacity:1}
+.hero-content{position:relative;max-width:860px}
+.hero h1{font-size:clamp(2.6rem,7vw,5.2rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin:1.6rem 0 1.5rem}
+.hero h1 .w{display:inline-block;opacity:0;animation:riseIn .8s var(--ease) forwards}
+.grad{
+  background:linear-gradient(110deg,var(--primary) 20%,var(--accent) 45%,var(--primary) 70%);
+  background-size:220% 100%;-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  animation:riseIn .8s var(--ease) forwards,gradFlow 5.5s linear 1s infinite}
+@keyframes gradFlow{from{background-position:0% 0}to{background-position:-220% 0}}
+@keyframes riseIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.hero [data-rise]{opacity:0;animation:riseIn .8s var(--ease) forwards}
+.hero-sub{font-size:clamp(1.05rem,2vw,1.25rem);max-width:36rem;margin-bottom:2.4rem;color:var(--text-secondary)}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:3rem}
+.hero-proof{display:flex;flex-wrap:wrap;gap:1.4rem;font-size:.92rem;color:var(--text-secondary)}
+.hero-proof span{display:inline-flex;align-items:center;gap:.45rem}
+.hero-proof svg{color:var(--primary);flex:none}
+.scroll-hint{position:absolute;left:50%;bottom:1.8rem;transform:translateX(-50%);color:var(--text-tertiary);
+  font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:.55rem}
+.scroll-hint::after{content:"";width:1.5px;height:34px;background:linear-gradient(var(--primary),transparent);
+  animation:hint 1.8s ease-in-out infinite}
+@keyframes hint{0%,100%{transform:scaleY(.4);transform-origin:top;opacity:.4}50%{transform:scaleY(1);opacity:1}}
+@media (max-height:760px){.scroll-hint{display:none}}
+
+/* ============ MARQUEE ============ */
+.marquee{border-block:1px solid var(--border);padding:1.9rem 0;overflow:hidden;background:var(--surface-alt)}
+.marquee-track{display:flex;width:max-content;gap:3.5rem;animation:scrollX 28s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee span{font:700 clamp(1.5rem,3.4vw,2.4rem)/1 var(--font-display);letter-spacing:-.02em;
+  color:var(--primary);white-space:nowrap;display:flex;align-items:center;gap:3.5rem}
+.marquee .sep{color:var(--accent);font-size:.7em}
+.marquee span:nth-child(even){color:transparent;-webkit-text-stroke:1px var(--text-tertiary)}
+@keyframes scrollX{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ============ REVEAL ============ */
+[data-reveal]{opacity:0;transform:translateY(32px);transition:opacity .7s,transform .7s var(--ease);transition-delay:var(--d,0s)}
+[data-reveal].in{opacity:1;transform:none}
+
+/* ============ BENTO SERVICES ============ */
+.bento{display:grid;gap:1.25rem;grid-template-columns:repeat(3,1fr)}
+.span-2{grid-column:span 2}
+.card{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;padding:2rem;transition:border-color .3s,transform .3s var(--ease),box-shadow .3s}
+.card::before{content:"";position:absolute;inset:0;opacity:0;pointer-events:none;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(var(--primary-rgb),.07),transparent 65%);
+  transition:opacity .35s}
+.card:hover{border-color:var(--border-hover);transform:translateY(-4px);box-shadow:0 16px 40px rgba(var(--primary-rgb),.12)}
+.card:hover::before{opacity:1}
+.card .ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;margin-bottom:1.4rem;
+  background:rgba(var(--primary-rgb),.08);border:1px solid rgba(var(--primary-rgb),.18);color:var(--primary)}
+.card h3{font-size:1.25rem;font-weight:600;margin-bottom:.6rem}
+.card p{font-size:.97rem;color:var(--text-secondary)}
+.card .more{display:inline-block;margin-top:1.1rem;font:600 .85rem var(--font-body);letter-spacing:.06em;
+  text-transform:uppercase;color:var(--primary);text-decoration:none}
+.card .more::after{content:" →";transition:none}
+.card .more:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* ============ STATS ============ */
+.stats{background:var(--surface-alt);border-block:1px solid var(--border)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.stat b{display:block;font:800 clamp(2.2rem,4vw,3.2rem)/1 var(--font-display);letter-spacing:-.02em;
+  background:linear-gradient(110deg,var(--primary),var(--accent));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;margin-bottom:.55rem}
+.stat span{font-size:.92rem;color:var(--text-tertiary)}
+
+/* ============ APPROCHE ============ */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.step-num{display:block;font:800 3rem/1 var(--font-display);letter-spacing:-.02em;color:var(--accent);margin-bottom:1.2rem}
+.offer{margin-top:1.25rem;display:grid;grid-template-columns:1.6fr auto;align-items:center;gap:2.5rem;
+  background:var(--primary);border-radius:24px;padding:clamp(2rem,5vw,3.5rem)}
+.offer h3{color:var(--bg);font-size:clamp(1.5rem,3vw,2.1rem);font-weight:700;line-height:1.2;margin:1rem 0 .7rem}
+.offer p{color:rgba(var(--bg-rgb),.85);max-width:46rem}
+.offer .eyebrow{color:var(--bg);border-color:rgba(var(--bg-rgb),.35);background:rgba(var(--bg-rgb),.08)}
+.offer .btn-primary:focus-visible{outline-color:var(--bg)}
+
+/* ============ AGENCE ============ */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,6vw,5rem);align-items:center}
+.about p{color:var(--text-secondary)}
+.about-img{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--border);aspect-ratio:4/5}
+.about-img img{width:100%;height:100%;object-fit:cover}
+.about-img::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(var(--primary-rgb),.08),rgba(var(--bg-rgb),.18))}
+.about-img .pin{position:absolute;left:1.2rem;bottom:1.2rem;z-index:2;display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(var(--surface-rgb),.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border:1px solid var(--border-hover);border-radius:999px;padding:.55rem 1rem;
+  font:600 .82rem var(--font-body);color:var(--text)}
+.about-img .pin svg{color:var(--accent)}
+.checks{list-style:none;margin-top:1.8rem;display:grid;gap:1rem;color:var(--text-secondary)}
+.checks li{display:flex;gap:.85rem;align-items:flex-start}
+.checks svg{flex:none;margin-top:.2rem;color:var(--primary)}
+.checks b{color:var(--text);font-weight:600}
+
+/* ============ CTA FINAL ============ */
+.cta-panel{position:relative;overflow:hidden;border-radius:28px;border:1px solid var(--border-hover);
+  background:linear-gradient(160deg,var(--surface) 0%,var(--surface-alt) 100%);
+  padding:clamp(3rem,7vw,5.5rem);text-align:center}
+.cta-panel::before{content:"";position:absolute;left:50%;top:-40%;width:70%;aspect-ratio:1;transform:translateX(-50%);
+  border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(var(--primary-rgb),.10) 0%,transparent 70%)}
+.cta-panel h2{font-size:clamp(1.9rem,4.5vw,3rem);font-weight:800;letter-spacing:-.02em;line-height:1.12;margin-bottom:1rem}
+.cta-panel>p{max-width:34rem;margin:0 auto 2.2rem;color:var(--text-secondary)}
+.cta-actions{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;position:relative}
+.cta-meta{margin-top:2rem;font-size:.88rem;color:var(--text-tertiary)}
+.cta-meta a{color:var(--text-secondary);text-decoration:underline;text-underline-offset:4px}
+.cta-meta a:hover{color:var(--primary)}
+
+/* ============ FOOTER ============ */
+.footer{border-top:1px solid var(--border);padding:3rem 0 2.5rem}
+.footer-inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem}
+.footer small{color:var(--text-tertiary);font-size:.85rem}
+.footer-links{display:flex;gap:1.6rem;list-style:none}
+.sun-egg{position:relative;background:none;border:none;cursor:pointer;color:var(--text-tertiary);
+  width:44px;height:44px;display:grid;place-items:center;border-radius:50%;transition:color .3s,transform .4s var(--ease)}
+.sun-egg:hover{color:var(--warning);transform:rotate(90deg)}
+.sun-egg:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.sun-egg .spark{position:absolute;left:50%;top:50%;width:4px;height:4px;border-radius:50%;
+  background:var(--warning);opacity:0;pointer-events:none}
+.sun-egg.burst .spark{animation:spark .7s var(--ease) forwards}
+@keyframes spark{0%{opacity:1;transform:translate(-50%,-50%)}100%{opacity:0;transform:translate(calc(-50% + var(--sx)),calc(-50% + var(--sy))) scale(.3)}}
+.egg-msg{position:fixed;left:50%;bottom:2rem;transform:translate(-50%,12px);z-index:200;
+  background:var(--surface);border:1px solid var(--border-hover);border-radius:999px;
+  padding:.8rem 1.4rem;font-size:.9rem;color:var(--text);opacity:0;pointer-events:none;
+  transition:opacity .4s,transform .4s var(--ease);box-shadow:0 16px 40px rgba(var(--primary-rgb),.18)}
+.egg-msg.show{opacity:1;transform:translate(-50%,0)}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:900px){
+  .bento{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:2.5rem 1rem}
+  .about{grid-template-columns:1fr}
+  .about-img{aspect-ratio:16/10;order:-1}
+  .offer{grid-template-columns:1fr;justify-items:start}
+}
+@media (max-width:600px){
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+  .bento{grid-template-columns:1fr}
+  .span-2{grid-column:span 1}
+  .hero{padding-top:7rem}
+  .hero h1{font-size:clamp(2.2rem,11vw,2.8rem)}
+  .section{padding:4.5rem 0}
+  .scroll-hint{display:none}
+}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  [data-reveal],.hero [data-rise],.hero h1 .w{opacity:1!important;transform:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="#">SXM Digital<span>.</span></a>
+    <nav aria-label="Navigation principale">
+      <ul class="nav-links">
+        <li><a class="link" href="#services">Services</a></li>
+        <li><a class="link" href="#approche">Notre approche</a></li>
+        <li><a class="link" href="#agence">L'agence</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-primary" href="#contact" style="padding:.8rem 1.4rem;min-height:44px">Démarrer un projet</a>
+    <button class="nav-burger" id="burger" aria-expanded="false" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services">Services</a>
+  <a href="#approche">Notre approche</a>
+  <a href="#agence">L'agence</a>
+  <a href="#contact" style="color:var(--primary)">Démarrer un projet</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="aurora" aria-hidden="true"><i></i><i></i></div>
+  <div class="hero-spot" aria-hidden="true"></div>
+  <div class="container hero-content">
+    <span class="eyebrow" data-rise style="animation-delay:.05s"><span class="dot"></span>Agence digitale — Saint-Martin · 97150</span>
+    <h1 aria-label="Votre présence digitale, aussi éclatante que l'île.">
+      <span class="w" style="animation-delay:.15s">Votre</span>
+      <span class="w" style="animation-delay:.24s">présence</span>
+      <span class="w" style="animation-delay:.33s">digitale,</span><br>
+      <span class="w" style="animation-delay:.42s">aussi</span>
+      <span class="w grad" style="animation-delay:.51s">éclatante</span><br>
+      <span class="w" style="animation-delay:.60s">que</span>
+      <span class="w" style="animation-delay:.69s">l'île.</span>
+    </h1>
+    <p class="hero-sub" data-rise style="animation-delay:.85s">
+      Sites web, branding, SEO local et réseaux sociaux pour les entreprises de Saint-Martin.
+      Une équipe 100&nbsp;% locale, bilingue FR/EN, qui connaît votre marché — de Marigot à Orient Bay.
+    </p>
+    <div class="hero-ctas" data-rise style="animation-delay:1s">
+      <a class="btn btn-primary" id="magnetBtn" href="#contact">Parlons de votre projet
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="#approche">Découvrir notre approche</a>
+    </div>
+    <div class="hero-proof" data-rise style="animation-delay:1.15s">
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Réponse sous 24h</span>
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Bilingue FR/EN</span>
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>100&nbsp;% Saint-Martin</span>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">Découvrir</div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack">
+    <span>Sites web<em class="sep">✦</em></span>
+    <span>E-commerce<em class="sep">✦</em></span>
+    <span>Branding<em class="sep">✦</em></span>
+    <span>SEO local<em class="sep">✦</em></span>
+    <span>Social media<em class="sep">✦</em></span>
+    <span>Photo &amp; drone<em class="sep">✦</em></span>
+  </div>
+</div>
+
+<!-- ============ SERVICES ============ -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Nos services</span>
+      <h2>Tout ce qu'il faut pour briller en ligne, sous un même toit.</h2>
+      <p>De la première maquette au premier client : nous concevons, lançons et faisons grandir votre présence digitale.</p>
+    </div>
+    <div class="bento">
+      <article class="card span-2" data-reveal>
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <h3>Sites web &amp; e-commerce</h3>
+        <p>Sites vitrines, boutiques en ligne et plateformes de réservation rapides, élégants et pensés mobile-first — parce que vos clients vous cherchent depuis la plage, pas depuis un bureau.</p>
+        <a class="more" href="#contact">En savoir plus</a>
+      </article>
+      <article class="card" data-reveal style="--d:.08s">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><path d="M12 22a9.94 9.94 0 0 0 7.07-2.93A9.93 9.93 0 0 0 22 12 10 10 0 1 0 12 22Z"/><path d="M7 14a2 2 0 1 0 4 0 2 2 0 0 0-4 0Z"/></svg></div>
+        <h3>Identité visuelle</h3>
+        <p>Logo, charte graphique et univers de marque qui capturent l'esprit de votre entreprise — sans tomber dans le cliché carte postale.</p>
+        <a class="more" href="#contact">En savoir plus</a>
+      </article>
+      <article class="card" data-reveal>
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+        <h3>SEO local</h3>
+        <p>Être trouvé avant vos concurrents sur « restaurant Grand-Case » ou « villa Terres Basses ». Google Business, avis, contenu : on s'occupe de tout.</p>
+        <a class="more" href="#contact">En savoir plus</a>
+      </article>
+      <article class="card" data-reveal style="--d:.08s">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h3Zm0 0 4.5-7.5A2 2 0 0 1 15 5l-1 5h6a2 2 0 0 1 2 2.4l-1.4 6A2 2 0 0 1 18.6 20H7"/></svg></div>
+        <h3>Social media</h3>
+        <p>Stratégie, création de contenu et community management sur Instagram, Facebook et TikTok — en français comme en anglais.</p>
+        <a class="more" href="#contact">En savoir plus</a>
+      </article>
+      <article class="card span-2" data-reveal style="--d:.16s">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3Z"/><circle cx="12" cy="13" r="3"/></svg></div>
+        <h3>Photo &amp; vidéo drone</h3>
+        <p>Shootings professionnels et prises de vue aériennes de votre établissement. L'île est votre meilleur argument de vente — montrez-la sous son plus bel angle, en 4K.</p>
+        <a class="more" href="#contact">En savoir plus</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="stats">
+  <div class="container" style="padding-top:4.5rem;padding-bottom:4.5rem">
+    <div class="stats-grid">
+      <div class="stat" data-reveal><b><span data-count="24">0</span>h</b><span>max pour répondre à votre demande</span></div>
+      <div class="stat" data-reveal style="--d:.08s"><b>FR·EN</b><span>marché bilingue maîtrisé</span></div>
+      <div class="stat" data-reveal style="--d:.16s"><b><span data-count="100">0</span>%</b><span>local — basés sur l'île</span></div>
+      <div class="stat" data-reveal style="--d:.24s"><b>1</b><span>interlocuteur unique, du brief au lancement</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPROCHE ============ -->
+<section class="section" id="approche">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Notre approche</span>
+      <h2>Trois étapes. Zéro jargon, zéro mauvaise surprise.</h2>
+      <p>Pas de process à rallonge ni de réunions inutiles : on avance vite, vous validez à chaque étape.</p>
+    </div>
+    <div class="steps" style="margin-bottom:1.25rem">
+      <article class="card" data-reveal>
+        <span class="step-num" aria-hidden="true">01</span>
+        <h3>Échange</h3>
+        <p>On se rencontre — à Marigot, chez vous ou en visio. Vous nous parlez de votre activité et de vos objectifs, on vous dit franchement ce qui vaut le coup. Devis clair sous 48h.</p>
+      </article>
+      <article class="card" data-reveal style="--d:.08s">
+        <span class="step-num" aria-hidden="true">02</span>
+        <h3>Création</h3>
+        <p>On conçoit votre site, votre identité ou vos contenus, en français et en anglais. Vous voyez l'avancement en continu et rien ne part en ligne sans votre validation.</p>
+      </article>
+      <article class="card" data-reveal style="--d:.16s">
+        <span class="step-num" aria-hidden="true">03</span>
+        <h3>Lancement</h3>
+        <p>Mise en ligne, prise en main ensemble, et on reste là après : ajustements, suivi des résultats et conseils pour la suite. Vous n'êtes jamais seul avec votre site.</p>
+      </article>
+    </div>
+    <div class="offer" data-reveal>
+      <div>
+        <span class="eyebrow"><span class="dot"></span>Offre de lancement</span>
+        <h3>Devenez l'un de nos premiers clients.</h3>
+        <p>L'agence démarre, et c'est une chance pour vous : tarif préférentiel, accompagnement rapproché et toute notre énergie sur votre projet. Places limitées, on se le dit franchement.</p>
+      </div>
+      <a class="btn btn-primary" href="#contact">J'en profite
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AGENCE ============ -->
+<section class="section" id="agence" style="background:var(--surface-alt);border-block:1px solid var(--border)">
+  <div class="container about">
+    <div data-reveal>
+      <span class="eyebrow">L'agence</span>
+      <h2 style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;line-height:1.15;letter-spacing:-.02em;margin:1.1rem 0 .9rem">
+        Basés sur l'île, pas à 7 000 km.
+      </h2>
+      <p>Une agence parisienne ne sait pas ce qu'est la haute saison, un coup de vent de novembre ou un client qui arrive de Juliana à 14h. Nous, si. Nous construisons des outils digitaux pensés pour la réalité de Saint-Martin.</p>
+      <ul class="checks">
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <span><b>Bilingue FR / EN</b> — vos contenus parlent aux deux côtés de l'île et aux visiteurs.</span>
+        </li>
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <span><b>Réactivité locale</b> — un rendez-vous à Marigot ou Hope Estate, c'est aujourd'hui, pas dans trois semaines.</span>
+        </li>
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <span><b>Saisonnalité maîtrisée</b> — campagnes calées sur la haute saison touristique et les ponts métropolitains.</span>
+        </li>
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <span><b>Un seul interlocuteur</b> — stratégie, design, technique et contenu, sans intermédiaire.</span>
+        </li>
+      </ul>
+      <div style="margin-top:2.2rem"><a class="btn btn-ghost" href="#contact">Rencontrons-nous</a></div>
+    </div>
+    <div class="about-img" data-reveal style="--d:.1s">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1000&auto=format&fit=crop" alt="Plage de sable blanc et eau turquoise à Saint-Martin" loading="lazy">
+      <span class="pin">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        Marigot, Saint-Martin
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="cta-panel" data-reveal>
+      <span class="eyebrow"><span class="dot"></span>On commence quand ?</span>
+      <h2 style="margin-top:1.2rem">Votre projet mérite mieux<br>qu'une page Facebook.</h2>
+      <p>Racontez-nous votre activité, on vous répond sous 24h avec des premières pistes concrètes — sans jargon et sans engagement.</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="mailto:hello@sxmdigitalagency.com?subject=Mon%20projet%20digital">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+          hello@sxmdigitalagency.com
+        </a>
+        <a class="btn btn-ghost" href="tel:+590690000000">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+          +590 690 00 00 00
+        </a>
+      </div>
+      <p class="cta-meta">Ou passez nous voir à Marigot — <a href="#agence">on est sur l'île, vraiment</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div>
+      <a class="logo" href="#" style="font-size:1.1rem">SXM Digital<span>.</span></a>
+      <br><small>© <span id="year"></span> SXM Digital Agency — Saint-Martin (97150). Tous droits réservés.</small>
+    </div>
+    <ul class="footer-links">
+      <li><a class="link" href="#services" style="font-size:.88rem">Services</a></li>
+      <li><a class="link" href="#approche" style="font-size:.88rem">Notre approche</a></li>
+      <li><a class="link" href="#contact" style="font-size:.88rem">Contact</a></li>
+    </ul>
+    <button class="sun-egg" id="sunEgg" aria-label="Un petit soleil caché" title="?">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</footer>
+<div class="egg-msg" id="eggMsg" role="status">Vous avez trouvé le soleil — il ne quitte jamais l'île. ☀</div>
+
+<script>
+(function(){
+  "use strict";
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canHover = matchMedia('(hover: hover)').matches;
+
+  /* Nav scrolled */
+  var nav = document.getElementById('nav');
+  function onScroll(){ nav.classList.toggle('scrolled', scrollY > 24); }
+  addEventListener('scroll', onScroll, { passive:true }); onScroll();
+
+  /* Burger / menu mobile */
+  var burger = document.getElementById('burger'), menu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      menu.classList.remove('open');
+      burger.setAttribute('aria-expanded','false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* Reveal au scroll */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold:.15, rootMargin:'0px 0px -8% 0px' });
+  document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
+
+  /* Compteurs stats */
+  var cio = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      cio.unobserve(e.target);
+      var el = e.target, target = +el.dataset.count, start = null, dur = 1400;
+      if (reduced){ el.textContent = target; return; }
+      function step(t){
+        if (!start) start = t;
+        var p = Math.min((t - start) / dur, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }, { threshold:.6 });
+  document.querySelectorAll('[data-count]').forEach(function(el){ cio.observe(el); });
+
+  /* Spotlight souris (hero + cartes) — rAF throttle, desktop seulement */
+  if (canHover && !reduced){
+    var hero = document.getElementById('hero');
+    hero.classList.add('spot-on');
+    var pending = false, px = 0, py = 0, heroEl = null;
+    hero.addEventListener('pointermove', function(ev){
+      px = ev.clientX; py = ev.clientY; heroEl = ev.currentTarget;
+      if (pending) return; pending = true;
+      requestAnimationFrame(function(){
+        pending = false;
+        var r = heroEl.getBoundingClientRect();
+        heroEl.style.setProperty('--mx', (px - r.left) + 'px');
+        heroEl.style.setProperty('--my', (py - r.top) + 'px');
+      });
+    });
+    document.querySelectorAll('.card').forEach(function(card){
+      var wait = false;
+      card.addEventListener('pointermove', function(ev){
+        if (wait) return; wait = true;
+        var x = ev.clientX, y = ev.clientY;
+        requestAnimationFrame(function(){
+          wait = false;
+          var r = card.getBoundingClientRect();
+          card.style.setProperty('--mx', (x - r.left) + 'px');
+          card.style.setProperty('--my', (y - r.top) + 'px');
+        });
+      });
+    });
+
+    /* CTA magnétique (±6px) */
+    var btn = document.getElementById('magnetBtn'), bWait = false;
+    btn.addEventListener('pointermove', function(ev){
+      if (bWait) return; bWait = true;
+      var x = ev.clientX, y = ev.clientY;
+      requestAnimationFrame(function(){
+        bWait = false;
+        var r = btn.getBoundingClientRect();
+        var dx = (x - r.left - r.width / 2) / r.width;
+        var dy = (y - r.top - r.height / 2) / r.height;
+        btn.style.transform = 'translate(' + (dx * 6) + 'px,' + (dy * 6 - 2) + 'px)';
+      });
+    });
+    btn.addEventListener('pointerleave', function(){ btn.style.transform = ''; });
+  }
+
+  /* Marquee : dupliquer la piste pour la boucle infinie */
+  var track = document.getElementById('marqueeTrack');
+  track.innerHTML += track.innerHTML;
+
+  /* Easter egg : le soleil du footer */
+  var egg = document.getElementById('sunEgg'), msg = document.getElementById('eggMsg'), tm;
+  for (var i = 0; i < 10; i++){
+    var s = document.createElement('span');
+    s.className = 'spark';
+    var a = (i / 10) * Math.PI * 2;
+    s.style.setProperty('--sx', Math.cos(a) * 30 + 'px');
+    s.style.setProperty('--sy', Math.sin(a) * 30 + 'px');
+    egg.appendChild(s);
+  }
+  egg.addEventListener('click', function(){
+    egg.classList.remove('burst');
+    void egg.offsetWidth; /* relance l'animation */
+    egg.classList.add('burst');
+    msg.classList.add('show');
+    clearTimeout(tm);
+    tm = setTimeout(function(){ msg.classList.remove('show'); }, 3200);
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
