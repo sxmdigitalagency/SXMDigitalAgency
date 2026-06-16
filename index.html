@@ -201,13 +201,19 @@ img{display:block;max-width:100%}
 .about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,6vw,5rem);align-items:center}
 .about p{color:var(--text-secondary)}
 .about-img{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--border);aspect-ratio:4/5}
-.about-img img{width:100%;height:100%;object-fit:cover}
+.about-img img{width:100%;height:100%;object-fit:cover;object-position:center 32%}
 .about-img::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(var(--primary-rgb),.08),rgba(var(--bg-rgb),.18))}
 .about-img .pin{position:absolute;left:1.2rem;bottom:1.2rem;z-index:2;display:inline-flex;align-items:center;gap:.5rem;
   background:rgba(var(--surface-rgb),.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   border:1px solid var(--border-hover);border-radius:999px;padding:.55rem 1rem;
   font:600 .82rem var(--font-body);color:var(--text)}
 .about-img .pin svg{color:var(--accent)}
+.about-img .credit{position:absolute;right:.7rem;bottom:.7rem;z-index:2;max-width:calc(100% - 1.4rem);
+  background:rgba(var(--surface-rgb),.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  border:1px solid var(--border);border-radius:8px;padding:.25rem .55rem;
+  font:500 .68rem/1.3 var(--font-body);color:var(--text-secondary)}
+.about-img .credit a{color:var(--text-secondary);text-decoration:underline;text-underline-offset:2px}
+.about-img .credit a:hover,.about-img .credit a:focus-visible{color:var(--primary)}
 .checks{list-style:none;margin-top:1.8rem;display:grid;gap:1rem;color:var(--text-secondary)}
 .checks li{display:flex;gap:.85rem;align-items:flex-start}
 .checks svg{flex:none;margin-top:.2rem;color:var(--primary)}
@@ -462,11 +468,12 @@ img{display:block;max-width:100%}
       <div style="margin-top:2.2rem"><a class="btn btn-ghost" href="#contact">Rencontrons-nous</a></div>
     </div>
     <div class="about-img" data-reveal style="--d:.1s">
-      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1000&auto=format&fit=crop" alt="Plage de sable blanc et eau turquoise à Saint-Martin" loading="lazy">
+      <img src="marigot-fort-louis.jpg" alt="Vue de Marigot et du port depuis le Fort Louis, Saint-Martin" decoding="async">
       <span class="pin">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
         Marigot, Saint-Martin
       </span>
+      <small class="credit">Photo&nbsp;: socaltraveler, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="license noopener noreferrer">CC&nbsp;BY-SA&nbsp;3.0</a></small>
     </div>
   </div>
 </section>

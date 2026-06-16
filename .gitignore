@@ -1,0 +1,5 @@
+# Sauvegarde locale de l'image originale (haute résolution, non versionnée)
+marigot-fort-louis.original.jpg
+
+# Config locale du serveur de prévisualisation
+.claude/launch.json
