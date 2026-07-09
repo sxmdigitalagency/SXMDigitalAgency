@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SXM Digital, agence digitale à Saint-Martin</title>
+  <meta name="description" content="Sites web, identité visuelle, référencement local et réseaux sociaux pour les commerces de Saint-Martin. Une agence 100 % locale et bilingue.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230E5E59'/%3E%3Ccircle cx='20' cy='46' r='9' fill='%23FF6B5B'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================
+       01. TOKENS
+       Palette stricte : lagon, crème, corail, anthracite.
+       Aucune autre couleur, aucun dégradé, aucune ombre.
+       ========================================================== */
+    :root {
+      --lagoon:     #0E5E59;
+      --cream:      #FAF6EF;
+      --coral:      #FF6B5B;
+      --anthracite: #1C1C1C;
+
+      /* Filets 1px, seules structures autorisées */
+      --rule-on-light: rgba(14, 94, 89, .28);
+      --rule-on-dark:  rgba(250, 246, 239, .28);
+
+      /* Texte secondaire (reste AA sur son fond) */
+      --muted-on-light: rgba(28, 28, 28, .72);
+      --muted-on-dark:  rgba(250, 246, 239, .85);
+
+      --font-display: "Fraunces", Georgia, serif;
+      --font-body: "Instrument Sans", system-ui, sans-serif;
+
+      /* Échelle typographique clamp, fort contraste display / labeur */
+      --fs-hero:  clamp(2.7rem, 8vw, 6.5rem);
+      --fs-h2:    clamp(1.9rem, 4.4vw, 3.4rem);
+      --fs-h3:    clamp(1.3rem, 2.4vw, 1.85rem);
+      --fs-body:  clamp(1rem, .95rem + .3vw, 1.125rem);
+      --fs-small: .8125rem;
+
+      --container: 1200px;
+      --gutter: clamp(1.5rem, 6vw, 5rem);
+      --section-pad: clamp(5.5rem, 13vw, 9.5rem);
+    }
+
+    /* ==========================================================
+       02. BASE
+       ========================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 2rem; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: var(--fs-body);
+      line-height: 1.65;
+      color: var(--anthracite);
+      background: var(--cream);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { background: var(--lagoon); color: var(--cream); }
+
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      font-optical-sizing: auto;
+      font-weight: 500;
+      line-height: 1.05;
+      color: var(--lagoon);
+    }
+
+    ul, ol { list-style: none; }
+
+    a { color: inherit; }
+
+    :focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+    .container {
+      max-width: var(--container);
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+
+    /* Le point corail : signature de la marque, jamais altéré */
+    .mark { color: var(--coral); }
+
+    /* Labels petites capitales : seul endroit où l’interlettrage s’écarte */
+    .eyebrow {
+      font-size: var(--fs-small);
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--lagoon);
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      background: var(--anthracite);
+      color: var(--cream);
+      padding: .75rem 1.25rem;
+    }
+    .skip-link:focus { left: var(--gutter); top: .75rem; z-index: 10; }
+
+    /* ==========================================================
+       03. BOUTONS
+       Rectangulaires, angles vifs, couleurs pleines.
+       ========================================================== */
+    .btn {
+      display: inline-block;
+      padding: 1.05rem 2.3rem;
+      border: 1px solid transparent;
+      border-radius: 0;
+      font-family: var(--font-body);
+      font-size: .95rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      text-decoration: none;
+      transition: background-color .18s ease, color .18s ease, border-color .18s ease;
+    }
+
+    /* Corail : réservé à l’unique CTA principal */
+    .btn-coral { background: var(--coral); color: var(--anthracite); }
+    .btn-coral:hover { background: var(--anthracite); color: var(--cream); }
+
+    .btn-cream { background: var(--cream); color: var(--lagoon); }
+    .btn-cream:hover { background: transparent; color: var(--cream); border-color: var(--cream); }
+
+    /* ==========================================================
+       04. HEADER
+       ========================================================== */
+    .site-header { border-bottom: 1px solid var(--rule-on-light); }
+
+    .header-grid {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      column-gap: 2.5rem;
+      row-gap: .35rem;
+      padding-block: 1.35rem;
+    }
+
+    .wordmark {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+      color: var(--lagoon);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .site-nav { margin-left: auto; display: flex; gap: clamp(1.25rem, 3vw, 2.25rem); }
+
+    .site-nav a {
+      position: relative;
+      font-size: .95rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--anthracite);
+    }
+    .site-nav a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: -5px;
+      width: 100%; height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .2s ease;
+    }
+    .site-nav a:hover::after,
+    .site-nav a:focus-visible::after { transform: scaleX(1); }
+
+    /* Sélecteur FR / EN : deux libellés texte, rien d’autre */
+    .lang-switch { display: flex; align-items: baseline; }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: .95rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      color: rgba(28, 28, 28, .5);
+    }
+    .lang-btn:hover { color: var(--anthracite); }
+    .lang-btn[aria-pressed="true"] { color: var(--coral); cursor: default; }
+
+    .lang-sep { padding-inline: .5em; font-weight: 400; color: rgba(28, 28, 28, .35); }
+
+    /* ==========================================================
+       05. HERO
+       ========================================================== */
+    .hero { padding-block: clamp(6rem, 15vw, 11rem) clamp(5rem, 12vw, 9rem); }
+
+    .hero .eyebrow { margin-bottom: clamp(1.75rem, 4vw, 3rem); }
+
+    .hero-title {
+      font-size: var(--fs-hero);
+      font-variation-settings: "opsz" 144;
+      font-weight: 460;
+      letter-spacing: -.015em;
+      line-height: 1.02;
+      max-width: 18ch;
+    }
+    .hero-title em { font-style: italic; font-weight: 440; }
+
+    .hero-foot {
+      margin-top: clamp(3rem, 7vw, 5rem);
+      padding-top: 2.25rem;
+      border-top: 1px solid var(--rule-on-light);
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .hero-sub { max-width: 46ch; color: var(--muted-on-light); }
+
+    .hero-cta { justify-self: end; }
+
+    /* ==========================================================
+       06. SECTIONS COMMUNES
+       ========================================================== */
+    .section { padding-block: var(--section-pad); }
+
+    .section-dark { background: var(--lagoon); color: var(--cream); }
+    .section-dark h2, .section-dark h3 { color: var(--cream); }
+    .section-dark .eyebrow { color: var(--muted-on-dark); }
+
+    .section-head { margin-bottom: clamp(3rem, 7vw, 5rem); }
+    .section-head .eyebrow { margin-bottom: 1.25rem; }
+
+    .section-title { font-size: var(--fs-h2); letter-spacing: -.01em; max-width: 20ch; }
+
+    /* ==========================================================
+       07. SERVICES : index à filets, pas de cartes
+       ========================================================== */
+    .service-list { border-bottom: 1px solid var(--rule-on-dark); }
+
+    .service-row {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: clamp(1rem, 3vw, 2.5rem);
+      padding-block: clamp(2rem, 5vw, 3rem);
+      border-top: 1px solid var(--rule-on-dark);
+    }
+
+    .service-row h3 { font-size: var(--fs-h3); letter-spacing: -.005em; }
+
+    .service-row p { color: var(--cream); max-width: 52ch; }
+
+    /* ==========================================================
+       08. MÉTHODE : colonne éditoriale + étapes numérotées
+       (la numérotation encode un ordre réel de travail)
+       ========================================================== */
+    .method-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: clamp(2.5rem, 6vw, 5rem);
+      align-items: start;
+    }
+
+    .method-intro { position: sticky; top: 3rem; }
+    .method-intro .eyebrow { margin-bottom: 1.25rem; }
+    .method-intro .section-title { margin-bottom: 1.75rem; }
+    .method-intro p { color: var(--muted-on-light); max-width: 38ch; }
+
+    .method-steps { border-bottom: 1px solid var(--rule-on-light); }
+
+    .method-step {
+      display: grid;
+      grid-template-columns: 3.5rem minmax(0, 1fr);
+      gap: 1.5rem;
+      padding-block: clamp(1.75rem, 4vw, 2.5rem);
+      border-top: 1px solid var(--rule-on-light);
+    }
+
+    .step-no {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--lagoon);
+      padding-top: .35rem;
+    }
+
+    .method-step h3 { font-size: var(--fs-h3); margin-bottom: .6rem; }
+    .method-step p { color: var(--muted-on-light); max-width: 50ch; }
+
+    /* ==========================================================
+       09. CONTACT
+       ========================================================== */
+    .contact-lead { color: var(--cream); max-width: 44ch; margin-top: -2.5rem; margin-bottom: clamp(3rem, 7vw, 5rem); }
+
+    .contact-list { border-bottom: 1px solid var(--rule-on-dark); }
+
+    .contact-row {
+      display: grid;
+      grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+      gap: clamp(1rem, 3vw, 2.5rem);
+      align-items: baseline;
+      padding-block: clamp(1.5rem, 3.5vw, 2.25rem);
+      border-top: 1px solid var(--rule-on-dark);
+    }
+
+    .contact-label {
+      font-size: var(--fs-small);
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted-on-dark);
+    }
+
+    .contact-value {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 3vw, 1.9rem);
+      font-weight: 460;
+      color: var(--cream);
+      text-decoration: underline;
+      text-decoration-color: transparent;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 7px;
+      transition: text-decoration-color .2s ease;
+      overflow-wrap: anywhere;
+    }
+    .contact-value:hover,
+    .contact-value:focus-visible { text-decoration-color: currentColor; }
+
+    .contact-cta { margin-top: clamp(2.5rem, 6vw, 4rem); }
+
+    /* ==========================================================
+       10. FOOTER
+       ========================================================== */
+    .site-footer { background: var(--lagoon); color: var(--cream); padding-bottom: clamp(2.5rem, 6vw, 4rem); }
+
+    .footer-grid {
+      border-top: 1px solid var(--rule-on-dark);
+      padding-top: clamp(2rem, 5vw, 3rem);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 2rem;
+      align-items: end;
+    }
+
+    .wordmark-footer { color: var(--cream); font-size: 1.5rem; }
+
+    .footer-meta { text-align: right; font-size: .875rem; color: var(--cream); }
+    .footer-meta p { line-height: 1.7; }
+
+    .footer-coords {
+      font-size: var(--fs-small);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    /* ==========================================================
+       11. APPARITION AU DÉFILEMENT (discrète)
+       ========================================================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .site-nav a::after, .btn, .contact-value { transition: none; }
+    }
+
+    /* ==========================================================
+       12. RESPONSIVE
+       ========================================================== */
+    @media (max-width: 760px) {
+      .site-nav { margin-left: 0; flex-basis: 100%; order: 3; padding-top: .5rem; }
+      .lang-switch { margin-left: auto; }
+
+      .hero-foot { grid-template-columns: 1fr; }
+      .hero-cta { justify-self: start; }
+
+      .service-row,
+      .contact-row,
+      .method-grid { grid-template-columns: 1fr; }
+
+      .method-intro { position: static; }
+      .service-row h3 { margin-bottom: .25rem; }
+
+      .footer-grid { grid-template-columns: 1fr; align-items: start; }
+      .footer-meta { text-align: left; }
+    }
+  </style>
+</head>
+<body id="top">
+
+  <a class="skip-link" href="#main" data-i18n="skip">Aller au contenu</a>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="container header-grid">
+      <a class="wordmark" href="#top" aria-label="SXM Digital">SXM Digital<span class="mark">.</span></a>
+
+      <nav class="site-nav" aria-label="Navigation principale">
+        <a href="#services" data-i18n="nav.services">Services</a>
+        <a href="#methode" data-i18n="nav.method">Méthode</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+
+      <div class="lang-switch" role="group" aria-label="Langue / Language">
+        <button type="button" class="lang-btn" id="lang-fr" aria-pressed="true" lang="fr">FR</button>
+        <span class="lang-sep" aria-hidden="true">/</span>
+        <button type="button" class="lang-btn" id="lang-en" aria-pressed="false" lang="en">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow" data-i18n="hero.eyebrow">Agence digitale indépendante, Saint-Martin</p>
+        <h1 class="hero-title" data-i18n="hero.title">Votre commerce mérite <em>mieux</em> qu’une page Facebook<span class="mark">.</span></h1>
+        <div class="hero-foot">
+          <p class="hero-sub" data-i18n="hero.sub">Nous concevons des sites et des identités pour les commerces de l’île. 100&nbsp;% local, bilingue, conçu et suivi par une seule personne, ici.</p>
+          <a class="btn btn-coral hero-cta" href="#contact" data-i18n="hero.cta">Parlons de votre projet</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SERVICES ================= -->
+    <section id="services" class="section section-dark">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow" data-i18n="services.label">Services</p>
+          <h2 class="section-title" data-i18n="services.title">Ce que nous faisons.</h2>
+        </div>
+
+        <ul class="service-list">
+          <li class="service-row reveal">
+            <h3 data-i18n="services.s1.name">Sites web</h3>
+            <p data-i18n="services.s1.desc">Vitrine, réservation, commande en ligne. Des sites rapides, clairs, dessinés pour vous, pas déballés d’un thème.</p>
+          </li>
+          <li class="service-row reveal">
+            <h3 data-i18n="services.s3.name">Référencement local</h3>
+            <p data-i18n="services.s3.desc">Fiche Google, cartes, avis. Être trouvé par les clients qui cherchent ici, au moment où ils cherchent.</p>
+          </li>
+          <li class="service-row reveal">
+            <h3 data-i18n="services.s4.name">Réseaux sociaux</h3>
+            <p data-i18n="services.s4.desc">Une ligne éditoriale simple et régulière, qui parle à vos clients sans leur crier dessus.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= MÉTHODE ================= -->
+    <section id="methode" class="section">
+      <div class="container method-grid">
+        <div class="method-intro reveal">
+          <p class="eyebrow" data-i18n="method.label">Méthode</p>
+          <h2 class="section-title" data-i18n="method.title">Comment nous travaillons.</h2>
+          <p data-i18n="method.intro">Pas de formule toute faite. Trois principes guident chaque projet, du premier rendez-vous à la mise en ligne.</p>
+        </div>
+
+        <ol class="method-steps">
+          <li class="method-step reveal">
+            <span class="step-no" aria-hidden="true">01</span>
+            <div>
+              <h3 data-i18n="method.s1.name">Écoute d’abord</h3>
+              <p data-i18n="method.s1.desc">Avant de parler de site, on parle de votre métier&nbsp;: vos clients, vos saisons, ce qui marche déjà. Le projet part de là.</p>
+            </div>
+          </li>
+          <li class="method-step reveal">
+            <span class="step-no" aria-hidden="true">02</span>
+            <div>
+              <h3 data-i18n="method.s2.name">Sur-mesure</h3>
+              <p data-i18n="method.s2.desc">Pas de thème acheté, pas de copier-coller. Chaque site est dessiné et écrit pour un seul commerce&nbsp;: le vôtre.</p>
+            </div>
+          </li>
+          <li class="method-step reveal">
+            <span class="step-no" aria-hidden="true">03</span>
+            <div>
+              <h3 data-i18n="method.s3.name">Ancrage local</h3>
+              <p data-i18n="method.s3.desc">Nous vivons et travaillons à Saint-Martin. On se rencontre, on se rappelle, on ajuste. Votre agence n’est pas à six fuseaux horaires.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact" class="section section-dark">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow" data-i18n="contact.label">Contact</p>
+          <h2 class="section-title" data-i18n="contact.title">Parlez-nous de votre commerce.</h2>
+        </div>
+        <p class="contact-lead reveal" data-i18n="contact.lead">Un premier échange, sans engagement. En français ou en anglais, comme vous préférez.</p>
+
+        <ul class="contact-list">
+          <li class="contact-row reveal">
+            <span class="contact-label">Email</span>
+            <a class="contact-value" href="mailto:sxmdigital.agency@gmail.com">sxmdigital.agency@gmail.com</a>
+          </li>
+          <li class="contact-row reveal">
+            <span class="contact-label" data-i18n="contact.telLabel">Téléphone</span>
+            <a class="contact-value" href="tel:+590690543256">+590 690 54 32 56</a>
+          </li>
+          <li class="contact-row reveal">
+            <span class="contact-label">WhatsApp</span>
+            <a class="contact-value" href="https://wa.me/590690543256" target="_blank" rel="noopener" data-i18n="contact.waLink">Envoyer un message</a>
+          </li>
+        </ul>
+
+        <a class="btn btn-cream contact-cta reveal" href="mailto:sxmdigital.agency@gmail.com?subject=Mon%20projet" data-i18n="contact.cta">Écrire à l’agence</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+      <div>
+        <a class="wordmark wordmark-footer" href="#top">SXM Digital<span class="mark">.</span></a>
+      </div>
+      <div class="footer-meta">
+        <p class="footer-coords">18.07° N, 63.08° W</p>
+        <p data-i18n="footer.tagline">Agence digitale indépendante, Marigot, Saint-Martin.</p>
+        <p><span data-i18n="footer.siret">SIRET&nbsp;: 106 977 234 00017</span></p>
+        <p>© 2026 SXM Digital</p>
+      </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ==========================================================
+       TRADUCTIONS
+       Une clé par nœud de texte. FR est la langue par défaut.
+       Modifier ici, et uniquement ici, pour changer le contenu.
+       ========================================================== */
+    const I18N = {
+
+      fr: {
+        "meta.title": "SXM Digital, agence digitale à Saint-Martin",
+        "meta.description": "Sites web, identité visuelle, référencement local et réseaux sociaux pour les commerces de Saint-Martin. Une agence 100 % locale et bilingue.",
+        "skip": "Aller au contenu",
+
+        "nav.services": "Services",
+        "nav.method": "Méthode",
+        "nav.contact": "Contact",
+
+        "hero.eyebrow": "Agence digitale indépendante, Saint-Martin",
+        "hero.title": "Votre commerce mérite <em>mieux</em> qu’une page Facebook<span class=\"mark\">.</span>",
+        "hero.sub": "Nous concevons des sites et des identités pour les commerces de l’île. 100&nbsp;% local, bilingue, conçu et suivi par une seule personne, ici.",
+        "hero.cta": "Parlons de votre projet",
+
+        "services.label": "Services",
+        "services.title": "Ce que nous faisons.",
+        "services.s1.name": "Sites web",
+        "services.s1.desc": "Vitrine, réservation, commande en ligne. Des sites rapides, clairs, dessinés pour vous, pas déballés d’un thème.",
+        "services.s3.name": "Référencement local",
+        "services.s3.desc": "Fiche Google, cartes, avis. Être trouvé par les clients qui cherchent ici, au moment où ils cherchent.",
+        "services.s4.name": "Réseaux sociaux",
+        "services.s4.desc": "Une ligne éditoriale simple et régulière, qui parle à vos clients sans leur crier dessus.",
+
+        "method.label": "Méthode",
+        "method.title": "Comment nous travaillons.",
+        "method.intro": "Pas de formule toute faite. Trois principes guident chaque projet, du premier rendez-vous à la mise en ligne.",
+        "method.s1.name": "Écoute d’abord",
+        "method.s1.desc": "Avant de parler de site, on parle de votre métier&nbsp;: vos clients, vos saisons, ce qui marche déjà. Le projet part de là.",
+        "method.s2.name": "Sur-mesure",
+        "method.s2.desc": "Pas de thème acheté, pas de copier-coller. Chaque site est dessiné et écrit pour un seul commerce&nbsp;: le vôtre.",
+        "method.s3.name": "Ancrage local",
+        "method.s3.desc": "Nous vivons et travaillons à Saint-Martin. On se rencontre, on se rappelle, on ajuste. Votre agence n’est pas à six fuseaux horaires.",
+
+        "contact.label": "Contact",
+        "contact.title": "Parlez-nous de votre commerce.",
+        "contact.lead": "Un premier échange, sans engagement. En français ou en anglais, comme vous préférez.",
+        "contact.telLabel": "Téléphone",
+        "contact.waLink": "Envoyer un message",
+        "contact.cta": "Écrire à l’agence",
+
+        "footer.tagline": "Agence digitale indépendante, Marigot, Saint-Martin.",
+        "footer.siret": "SIRET&nbsp;: 106 977 234 00017"
+      },
+
+      en: {
+        "meta.title": "SXM Digital, digital agency in Saint-Martin",
+        "meta.description": "Websites, brand identity, local SEO and social media for Saint-Martin businesses. A fully local, bilingual agency.",
+        "skip": "Skip to content",
+
+        "nav.services": "Services",
+        "nav.method": "Method",
+        "nav.contact": "Contact",
+
+        "hero.eyebrow": "Independent digital agency, Saint-Martin",
+        "hero.title": "Your business deserves <em>more</em> than a Facebook page<span class=\"mark\">.</span>",
+        "hero.sub": "We design websites and brand identities for the island’s businesses. 100% local, bilingual, built and handled by one person, here.",
+        "hero.cta": "Let’s talk about your project",
+
+        "services.label": "Services",
+        "services.title": "What we do.",
+        "services.s1.name": "Websites",
+        "services.s1.desc": "Storefront, booking, online ordering. Fast, clear sites, designed for you, not unpacked from a theme.",
+        "services.s3.name": "Local SEO",
+        "services.s3.desc": "Google profile, maps, reviews. Get found by customers searching here, right when they search.",
+        "services.s4.name": "Social media",
+        "services.s4.desc": "A simple, steady editorial line that speaks to your customers without shouting at them.",
+
+        "method.label": "Method",
+        "method.title": "How we work.",
+        "method.intro": "No ready-made formula. Three principles guide every project, from the first meeting to launch day.",
+        "method.s1.name": "Listening first",
+        "method.s1.desc": "Before we talk about a website, we talk about your trade: your customers, your seasons, what already works. The project starts there.",
+        "method.s2.name": "Made to measure",
+        "method.s2.desc": "No off-the-shelf themes, no copy and paste. Every site is designed and written for one business: yours.",
+        "method.s3.name": "Rooted here",
+        "method.s3.desc": "We live and work in Saint-Martin. We meet, we call back, we adjust. Your agency is not six time zones away.",
+
+        "contact.label": "Contact",
+        "contact.title": "Tell us about your business.",
+        "contact.lead": "A first conversation, no strings attached. In French or in English, whichever you prefer.",
+        "contact.telLabel": "Phone",
+        "contact.waLink": "Send a message",
+        "contact.cta": "Email the agency",
+
+        "footer.tagline": "Independent digital agency, Marigot, Saint-Martin.",
+        "footer.siret": "SIRET: 106 977 234 00017"
+      }
+    };
+
+    /* ==========================================================
+       BASCULE DE LANGUE
+       FR par défaut, choix persisté dans localStorage.
+       ========================================================== */
+    const langButtons = { fr: document.getElementById('lang-fr'), en: document.getElementById('lang-en') };
+
+    function setLang(lang) {
+      const dict = I18N[lang];
+      if (!dict) return;
+
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        const value = dict[el.dataset.i18n];
+        if (value !== undefined) el.innerHTML = value;
+      });
+
+      document.documentElement.lang = lang;
+      document.title = dict['meta.title'];
+      document.querySelector('meta[name="description"]').setAttribute('content', dict['meta.description']);
+
+      Object.keys(langButtons).forEach(function (key) {
+        langButtons[key].setAttribute('aria-pressed', String(key === lang));
+      });
+
+      try { localStorage.setItem('sxm-lang', lang); } catch (e) { /* stockage indisponible */ }
+    }
+
+    langButtons.fr.addEventListener('click', function () { setLang('fr'); });
+    langButtons.en.addEventListener('click', function () { setLang('en'); });
+
+    let saved = null;
+    try { saved = localStorage.getItem('sxm-lang'); } catch (e) { /* stockage indisponible */ }
+    if (saved === 'en') setLang('en');
+
+    /* ==========================================================
+       APPARITION AU DÉFILEMENT
+       ========================================================== */
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealEls = document.querySelectorAll('.reveal');
+
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach(function (el) { observer.observe(el); });
+    }
+  </script>
+</body>
+</html>
