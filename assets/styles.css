@@ -764,7 +764,7 @@ html[data-nav-open="true"] body {
   padding: .95rem 1.4rem;
   background: var(--coral);
   color: var(--anthracite);
-  border: 1px solid var(--anthracite);
+  border: 1px solid var(--coral);
   font-size: .9rem;
   font-weight: 600;
   letter-spacing: .02em;
