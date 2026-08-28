@@ -1,0 +1,631 @@
+/* ==========================================================
+   SXM DIGITAL — FEUILLE DE STYLE UNIQUE
+   Partagée par les 6 pages. Modifier ici, et uniquement ici.
+   ========================================================== */
+
+/* ==========================================================
+   01. TOKENS
+   Palette stricte : lagon, crème, corail, anthracite.
+   Aucune autre couleur, aucun dégradé, aucune ombre.
+   ========================================================== */
+:root {
+  --lagoon:     #0E5E59;
+  --cream:      #FAF6EF;
+  --coral:      #FF6B5B;
+  --anthracite: #1C1C1C;
+
+  /* Filets 1px, seules structures autorisées */
+  --rule-on-light: rgba(14, 94, 89, .28);
+  --rule-on-dark:  rgba(250, 246, 239, .28);
+
+  /* Texte secondaire (reste AA sur son fond) */
+  --muted-on-light: rgba(28, 28, 28, .72);
+  --muted-on-dark:  rgba(250, 246, 239, .85);
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Instrument Sans", system-ui, sans-serif;
+
+  /* Échelle typographique clamp, fort contraste display / labeur */
+  --fs-hero:  clamp(2.7rem, 8vw, 6.5rem);
+  --fs-page:  clamp(2.3rem, 6vw, 4.6rem);
+  --fs-h2:    clamp(1.9rem, 4.4vw, 3.4rem);
+  --fs-h3:    clamp(1.3rem, 2.4vw, 1.85rem);
+  --fs-body:  clamp(1rem, .95rem + .3vw, 1.125rem);
+  --fs-lead:  clamp(1.15rem, 1rem + .8vw, 1.5rem);
+  --fs-small: .8125rem;
+
+  --container: 1200px;
+  --gutter: clamp(1.5rem, 6vw, 5rem);
+  --section-pad: clamp(5.5rem, 13vw, 9.5rem);
+}
+
+/* ==========================================================
+   02. BASE
+   ========================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 2rem; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  color: var(--anthracite);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--lagoon); color: var(--cream); }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--lagoon);
+}
+
+ul, ol { list-style: none; }
+
+a { color: inherit; }
+
+:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+.container {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Le point corail : signature de la marque, jamais altéré */
+.mark { color: var(--coral); }
+
+/* Labels petites capitales : seul endroit où l’interlettrage s’écarte */
+.eyebrow {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  background: var(--anthracite);
+  color: var(--cream);
+  padding: .75rem 1.25rem;
+}
+.skip-link:focus { left: var(--gutter); top: .75rem; z-index: 10; }
+
+/* ==========================================================
+   03. BOUTONS
+   Rectangulaires, angles vifs, couleurs pleines.
+   ========================================================== */
+.btn {
+  display: inline-block;
+  padding: 1.05rem 2.3rem;
+  border: 1px solid transparent;
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-size: .95rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  text-decoration: none;
+  transition: background-color .18s ease, color .18s ease, border-color .18s ease;
+}
+
+/* Corail : réservé à l’unique CTA principal */
+.btn-coral { background: var(--coral); color: var(--anthracite); }
+.btn-coral:hover { background: var(--anthracite); color: var(--cream); }
+
+.btn-cream { background: var(--cream); color: var(--lagoon); }
+.btn-cream:hover { background: transparent; color: var(--cream); border-color: var(--cream); }
+
+/* ==========================================================
+   04. HEADER
+   ========================================================== */
+.site-header { border-bottom: 1px solid var(--rule-on-light); }
+
+.header-grid {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 2.5rem;
+  row-gap: .35rem;
+  padding-block: 1.35rem;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  color: var(--lagoon);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-nav {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1rem, 2.4vw, 2rem);
+}
+
+.site-nav a {
+  position: relative;
+  font-size: .95rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--anthracite);
+  white-space: nowrap;
+}
+.site-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -5px;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .2s ease;
+}
+.site-nav a:hover::after,
+.site-nav a:focus-visible::after { transform: scaleX(1); }
+
+/* Page courante : filet permanent, pas de couleur en plus */
+.site-nav a[aria-current="page"] { color: var(--lagoon); font-weight: 600; }
+.site-nav a[aria-current="page"]::after { transform: scaleX(1); }
+
+/* Sélecteur FR / EN : deux libellés texte, rien d’autre */
+.lang-switch { display: flex; align-items: baseline; margin-block: -.7rem; }
+
+.lang-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: .95rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  /* .72 : même valeur que --muted-on-light, seuil AA atteint (6.50:1) */
+  color: rgba(28, 28, 28, .72);
+  /* Cible tactile confortable sans déplacer la ligne de base */
+  padding-block: .7rem;
+}
+.lang-btn:hover { color: var(--anthracite); }
+/* État actif : le corail reste la signature de marque, mais il ne porte
+   plus seul l'information. Filet lagon 2px + graisse renforcée : l'état
+   reste lisible sans dépendre de la couleur (WCAG 1.4.1), et le filet
+   lui-même atteint 7.05:1 sur crème (WCAG 1.4.11, seuil 3:1). */
+.lang-btn[aria-pressed="true"] {
+  color: var(--coral);
+  cursor: default;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+  text-decoration-color: var(--lagoon);
+}
+
+.lang-sep { padding-inline: .5em; font-weight: 400; color: rgba(28, 28, 28, .35); }
+
+/* ==========================================================
+   05. HERO (accueil)
+   ========================================================== */
+.hero { padding-block: clamp(6rem, 15vw, 11rem) clamp(5rem, 12vw, 9rem); }
+
+.hero .eyebrow { margin-bottom: clamp(1.75rem, 4vw, 3rem); }
+
+.hero-title {
+  font-size: var(--fs-hero);
+  font-variation-settings: "opsz" 144;
+  font-weight: 460;
+  letter-spacing: -.015em;
+  line-height: 1.02;
+  max-width: 18ch;
+}
+.hero-title em { font-style: italic; font-weight: 440; }
+
+.hero-foot {
+  margin-top: clamp(3rem, 7vw, 5rem);
+  padding-top: 2.25rem;
+  border-top: 1px solid var(--rule-on-light);
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.hero-sub { max-width: 46ch; color: var(--muted-on-light); }
+
+.hero-cta { justify-self: end; }
+
+/* ==========================================================
+   06. SECTIONS COMMUNES
+   ========================================================== */
+.section { padding-block: var(--section-pad); }
+
+.section-dark { background: var(--lagoon); color: var(--cream); }
+.section-dark h2, .section-dark h3 { color: var(--cream); }
+.section-dark .eyebrow { color: var(--muted-on-dark); }
+
+.section-head { margin-bottom: clamp(3rem, 7vw, 5rem); }
+.section-head .eyebrow { margin-bottom: 1.25rem; }
+
+.section-title { font-size: var(--fs-h2); letter-spacing: -.01em; max-width: 20ch; }
+
+/* ==========================================================
+   07. SERVICES : index à filets, pas de cartes
+   ========================================================== */
+.service-list { border-bottom: 1px solid var(--rule-on-dark); }
+
+.service-row {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding-block: clamp(2rem, 5vw, 3rem);
+  border-top: 1px solid var(--rule-on-dark);
+}
+
+.service-row h3 { font-size: var(--fs-h3); letter-spacing: -.005em; }
+
+.service-row p { color: var(--cream); max-width: 52ch; }
+
+/* ==========================================================
+   08. LIEN « EN SAVOIR PLUS »
+   Filet sous le libellé, flèche décalée au survol.
+   ========================================================== */
+.link-more {
+  display: inline-block;
+  margin-top: 1.15rem;
+  font-size: .95rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: .15rem;
+}
+.link-more .arrow {
+  display: inline-block;
+  margin-left: .5em;
+  transition: transform .2s ease;
+}
+.link-more:hover .arrow,
+.link-more:focus-visible .arrow { transform: translateX(.25em); }
+
+/* ==========================================================
+   09. MÉTHODE : colonne éditoriale + étapes numérotées
+   (la numérotation encode un ordre réel de travail)
+   ========================================================== */
+.method-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.method-intro { position: sticky; top: 3rem; }
+.method-intro .eyebrow { margin-bottom: 1.25rem; }
+.method-intro .section-title { margin-bottom: 1.75rem; }
+.method-intro p { color: var(--muted-on-light); max-width: 38ch; }
+
+.method-steps { border-bottom: 1px solid var(--rule-on-light); }
+
+.method-step {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  gap: 1.5rem;
+  padding-block: clamp(1.75rem, 4vw, 2.5rem);
+  border-top: 1px solid var(--rule-on-light);
+}
+
+.step-no {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--lagoon);
+  padding-top: .35rem;
+}
+
+.method-step h3 { font-size: var(--fs-h3); margin-bottom: .6rem; }
+.method-step p { color: var(--muted-on-light); max-width: 50ch; }
+
+/* Variante sur fond lagon */
+.section-dark .method-steps { border-bottom-color: var(--rule-on-dark); }
+.section-dark .method-step { border-top-color: var(--rule-on-dark); }
+.section-dark .step-no { color: var(--cream); }
+.section-dark .method-step p { color: var(--muted-on-dark); }
+
+/* ==========================================================
+   10. RÉALISATION MISE EN AVANT
+   ========================================================== */
+.work-row {
+  border-top: 1px solid var(--rule-on-light);
+  border-bottom: 1px solid var(--rule-on-light);
+  padding-block: clamp(2.25rem, 5vw, 3.25rem);
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+.work-row h3 {
+  font-size: var(--fs-h3);
+  letter-spacing: -.005em;
+}
+
+.work-row p { color: var(--muted-on-light); max-width: 52ch; }
+
+/* ==========================================================
+   11. PAGE INTÉRIEURE : titre + chapô
+   ========================================================== */
+.page-hero { padding-block: clamp(4.5rem, 11vw, 8rem) clamp(3.5rem, 8vw, 6rem); }
+
+.page-hero .eyebrow { margin-bottom: clamp(1.5rem, 3.5vw, 2.5rem); }
+
+.page-title {
+  font-size: var(--fs-page);
+  font-variation-settings: "opsz" 144;
+  font-weight: 460;
+  letter-spacing: -.015em;
+  line-height: 1.03;
+  max-width: 20ch;
+}
+.page-title em { font-style: italic; font-weight: 440; }
+
+.page-lead {
+  margin-top: clamp(2rem, 4.5vw, 3rem);
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule-on-light);
+  font-family: var(--font-display);
+  font-size: var(--fs-lead);
+  font-weight: 460;
+  line-height: 1.35;
+  color: var(--lagoon);
+  max-width: 34ch;
+}
+
+.page-intro {
+  margin-top: 1.75rem;
+  color: var(--muted-on-light);
+  max-width: 60ch;
+}
+
+/* ==========================================================
+   12. LISTES ÉDITORIALES
+   Problèmes (titre + explication) et résultats (puce simple).
+   ========================================================== */
+.edito-list { border-bottom: 1px solid var(--rule-on-light); }
+.section-dark .edito-list { border-bottom-color: var(--rule-on-dark); }
+
+.edito-item {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding-block: clamp(1.75rem, 4vw, 2.75rem);
+  border-top: 1px solid var(--rule-on-light);
+  align-items: start;
+}
+.section-dark .edito-item { border-top-color: var(--rule-on-dark); }
+
+.edito-item h3 { font-size: var(--fs-h3); letter-spacing: -.005em; }
+.edito-item p { color: var(--muted-on-light); max-width: 54ch; }
+.section-dark .edito-item p { color: var(--muted-on-dark); }
+
+/* Liste de résultats : une colonne, filets, pas de titres */
+.outcome-list { border-bottom: 1px solid var(--rule-on-light); max-width: 70ch; }
+.section-dark .outcome-list { border-bottom-color: var(--rule-on-dark); }
+
+.outcome-item {
+  display: grid;
+  grid-template-columns: 1.75rem minmax(0, 1fr);
+  gap: 1rem;
+  padding-block: clamp(1.25rem, 3vw, 1.85rem);
+  border-top: 1px solid var(--rule-on-light);
+  color: var(--muted-on-light);
+}
+.section-dark .outcome-item { border-top-color: var(--rule-on-dark); color: var(--muted-on-dark); }
+
+.outcome-item::before {
+  content: "—";
+  font-family: var(--font-display);
+  color: var(--coral);
+}
+
+/* ==========================================================
+   13. BLOC PROSE (paragraphes suivis)
+   ========================================================== */
+.prose { max-width: 60ch; }
+.prose p { color: var(--muted-on-light); }
+.prose p + p { margin-top: 1.25rem; }
+.section-dark .prose p { color: var(--muted-on-dark); }
+
+/* ==========================================================
+   14. EXEMPLE / RÉFÉRENCE ENCADRÉE PAR FILETS
+   ========================================================== */
+.example {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  border-top: 1px solid var(--rule-on-light);
+  border-bottom: 1px solid var(--rule-on-light);
+  padding-block: clamp(2rem, 4.5vw, 2.75rem);
+  max-width: 70ch;
+}
+.section-dark .example { border-color: var(--rule-on-dark); }
+
+.example .eyebrow { margin-bottom: 1rem; }
+.example h3 { font-size: var(--fs-h3); margin-bottom: .75rem; }
+.example p { color: var(--muted-on-light); max-width: 56ch; }
+.section-dark .example p { color: var(--muted-on-dark); }
+
+/* ==========================================================
+   15. TARIF
+   ========================================================== */
+.price-block { max-width: 56ch; }
+
+.price-figure {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  font-weight: 460;
+  line-height: 1.1;
+  letter-spacing: -.01em;
+  color: var(--cream);
+  margin-bottom: 1.5rem;
+}
+
+.price-block p { color: var(--muted-on-dark); }
+
+/* ==========================================================
+   16. FAQ : questions/réponses à filets
+   ========================================================== */
+.faq-list { border-bottom: 1px solid var(--rule-on-light); }
+
+.faq-item {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding-block: clamp(1.75rem, 4vw, 2.75rem);
+  border-top: 1px solid var(--rule-on-light);
+  align-items: start;
+}
+
+.faq-item h3 { font-size: var(--fs-h3); letter-spacing: -.005em; max-width: 30ch; }
+.faq-item p { color: var(--muted-on-light); max-width: 54ch; }
+
+/* ==========================================================
+   17. CONTACT
+   ========================================================== */
+.contact-lead { color: var(--cream); max-width: 44ch; margin-top: -2.5rem; margin-bottom: clamp(3rem, 7vw, 5rem); }
+
+.contact-list { border-bottom: 1px solid var(--rule-on-dark); }
+
+.contact-row {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: baseline;
+  padding-block: clamp(1.5rem, 3.5vw, 2.25rem);
+  border-top: 1px solid var(--rule-on-dark);
+}
+
+.contact-label {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted-on-dark);
+}
+
+.contact-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3vw, 1.9rem);
+  font-weight: 460;
+  color: var(--cream);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 7px;
+  transition: text-decoration-color .2s ease;
+  overflow-wrap: anywhere;
+}
+.contact-value:hover,
+.contact-value:focus-visible { text-decoration-color: currentColor; }
+
+.contact-cta { margin-top: clamp(2.5rem, 6vw, 4rem); }
+
+/* ==========================================================
+   18. CTA DE FIN DE PAGE
+   ========================================================== */
+.closing-title {
+  font-size: var(--fs-h2);
+  letter-spacing: -.01em;
+  max-width: 18ch;
+  margin-bottom: 1.5rem;
+}
+
+.closing-text { color: var(--muted-on-dark); max-width: 48ch; margin-bottom: clamp(2.5rem, 6vw, 3.5rem); }
+
+.closing-divider {
+  border-top: 1px solid var(--rule-on-dark);
+  margin-top: clamp(3rem, 7vw, 4.5rem);
+  padding-top: clamp(3rem, 7vw, 4.5rem);
+}
+
+/* ==========================================================
+   19. FOOTER
+   ========================================================== */
+.site-footer { background: var(--lagoon); color: var(--cream); padding-bottom: clamp(2.5rem, 6vw, 4rem); }
+
+.footer-grid {
+  border-top: 1px solid var(--rule-on-dark);
+  padding-top: clamp(2rem, 5vw, 3rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2rem;
+  align-items: end;
+}
+
+.wordmark-footer { color: var(--cream); font-size: 1.5rem; }
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem 1.5rem;
+  margin-top: 1.5rem;
+  font-size: .9rem;
+}
+.footer-nav a { text-decoration: none; color: var(--muted-on-dark); }
+.footer-nav a:hover { color: var(--cream); text-decoration: underline; text-underline-offset: 5px; }
+
+.footer-meta { text-align: right; font-size: .875rem; color: var(--cream); }
+.footer-meta p { line-height: 1.7; }
+
+.footer-coords {
+  font-size: var(--fs-small);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================
+   20. APPARITION AU DÉFILEMENT (discrète)
+   ========================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .site-nav a::after, .btn, .contact-value, .link-more .arrow { transition: none; }
+}
+
+/* ==========================================================
+   21. RESPONSIVE
+   ========================================================== */
+@media (max-width: 760px) {
+  .site-nav { margin-left: 0; flex-basis: 100%; order: 3; padding-top: .75rem; }
+  .lang-switch { margin-left: auto; }
+
+  .hero-foot { grid-template-columns: 1fr; }
+  .hero-cta { justify-self: start; }
+
+  .service-row,
+  .contact-row,
+  .method-grid,
+  .edito-item,
+  .faq-item,
+  .work-row { grid-template-columns: 1fr; }
+
+  .method-intro { position: static; }
+  .service-row h3,
+  .edito-item h3,
+  .faq-item h3,
+  .work-row h3 { margin-bottom: .25rem; }
+
+  .footer-grid { grid-template-columns: 1fr; align-items: start; }
+  .footer-meta { text-align: left; }
+}
