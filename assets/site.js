@@ -47,6 +47,8 @@ const I18N = {
     "footer.tagline": "Agence digitale indépendante, Marigot, Saint-Martin.",
     "footer.siret": "SIRET&nbsp;: 106 977 234 00017",
     "nav.mainLabel": "Navigation principale",
+    "nav.open": "Ouvrir le menu",
+    "nav.close": "Fermer le menu",
     "footer.navLabel": "Navigation de pied de page",
 
     /* ---------- Accueil ---------- */
@@ -251,6 +253,8 @@ const I18N = {
     "footer.tagline": "Independent digital agency, Marigot, Saint-Martin.",
     "footer.siret": "SIRET: 106 977 234 00017",
     "nav.mainLabel": "Main navigation",
+    "nav.open": "Open menu",
+    "nav.close": "Close menu",
     "footer.navLabel": "Footer navigation",
 
     /* ---------- Home ---------- */
@@ -428,9 +432,14 @@ const langButtons = { fr: document.getElementById('lang-fr'), en: document.getEl
 /* Identifiant de la page courante, pour les métadonnées */
 const PAGE = document.body.dataset.page || 'home';
 
+/* Langue affichée : le libellé du bouton de menu la suit */
+let currentLang = 'fr';
+
 function setLang(lang) {
   const dict = I18N[lang];
   if (!dict) return;
+
+  currentLang = lang;
 
   document.querySelectorAll('[data-i18n]').forEach(function (el) {
     const value = dict[el.dataset.i18n];
@@ -464,6 +473,88 @@ if (langButtons.en) langButtons.en.addEventListener('click', function () { setLa
 let saved = null;
 try { saved = localStorage.getItem('sxm-lang'); } catch (e) { /* stockage indisponible */ }
 if (saved === 'en') setLang('en');
+
+/* ==========================================================
+   MENU MOBILE
+   Overlay plein écran sous 760px, le même point de rupture que
+   le reste de la feuille de style. Le sélecteur FR/EN reste dans
+   l'en-tête : il n'est jamais rangé dans le menu.
+   ========================================================== */
+const siteHeader = document.querySelector('.site-header');
+const navToggle  = document.getElementById('nav-toggle');
+const siteNav    = document.getElementById('site-nav');
+const mobileMQ   = window.matchMedia('(max-width: 760px)');
+
+let scrollLockY = 0;
+
+/* Éléments atteignables au clavier pendant que l'overlay est ouvert :
+   tout l'en-tête, overlay compris, puisque le nav en est un descendant. */
+function headerFocusables() {
+  return Array.prototype.slice
+    .call(siteHeader.querySelectorAll('a[href], button:not([disabled])'))
+    .filter(function (el) { return el.offsetWidth > 0 || el.offsetHeight > 0; });
+}
+
+function onNavKeydown(e) {
+  if (e.key === 'Escape') {
+    setNavOpen(false);
+    navToggle.focus();
+    return;
+  }
+  if (e.key !== 'Tab') return;
+
+  const els = headerFocusables();
+  if (!els.length) return;
+  const first = els[0], last = els[els.length - 1];
+
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault(); last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault(); first.focus();
+  }
+}
+
+function setNavOpen(open) {
+  if (!navToggle || !siteNav) return;
+
+  navToggle.setAttribute('aria-expanded', String(open));
+  siteNav.setAttribute('data-open', String(open));
+
+  navToggle.dataset.i18nAria = open ? 'nav.close' : 'nav.open';
+  const label = I18N[currentLang] && I18N[currentLang][navToggle.dataset.i18nAria];
+  if (label) navToggle.setAttribute('aria-label', label);
+
+  if (open) {
+    scrollLockY = window.scrollY;
+    document.body.style.top = (-scrollLockY) + 'px';
+    document.body.dataset.navOpen = 'true';
+    document.addEventListener('keydown', onNavKeydown);
+    const firstLink = siteNav.querySelector('a[href]');
+    if (firstLink) firstLink.focus();
+  } else {
+    delete document.body.dataset.navOpen;
+    document.body.style.top = '';
+    window.scrollTo(0, scrollLockY);
+    document.removeEventListener('keydown', onNavKeydown);
+  }
+}
+
+if (navToggle && siteNav) {
+  navToggle.addEventListener('click', function () {
+    setNavOpen(navToggle.getAttribute('aria-expanded') !== 'true');
+  });
+
+  siteNav.addEventListener('click', function (e) {
+    /* Un lien : on laisse la navigation se faire, l'état est réinitialisé.
+       Le fond de l'overlay : fermeture au clic en dehors des liens. */
+    if (e.target.closest('a[href]') || e.target === siteNav) setNavOpen(false);
+  });
+
+  /* Repasser au-dessus du point de rupture ne doit pas laisser d'état bloqué */
+  const onBreakpointChange = function (e) { if (!e.matches) setNavOpen(false); };
+  if (mobileMQ.addEventListener) mobileMQ.addEventListener('change', onBreakpointChange);
+  else if (mobileMQ.addListener) mobileMQ.addListener(onBreakpointChange);
+}
 
 /* ==========================================================
    APPARITION AU DÉFILEMENT

@@ -22,7 +22,13 @@
     <div class="container header-grid">
       <a class="wordmark" href="/" aria-label="SXM Digital">SXM Digital<span class="mark">.</span></a>
 
-      <nav class="site-nav" aria-label="Navigation principale" data-i18n-aria="nav.mainLabel">
+      <button type="button" class="nav-toggle" id="nav-toggle"
+              aria-controls="site-nav" aria-expanded="false"
+              aria-label="Ouvrir le menu" data-i18n-aria="nav.open">
+        <span class="nav-toggle-icon" aria-hidden="true"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Navigation principale" data-i18n-aria="nav.mainLabel">
         <a href="/sites-web" data-i18n="nav.sites">Sites web</a>
         <a href="/seo-local" data-i18n="nav.seo">Référencement</a>
         <a href="/automatisations" aria-current="page" data-i18n="nav.auto">Automatisations</a>

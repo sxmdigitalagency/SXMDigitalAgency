@@ -212,6 +212,55 @@ a { color: inherit; }
 
 .lang-sep { padding-inline: .5em; font-weight: 400; color: rgba(28, 28, 28, .35); }
 
+/* Bouton du menu mobile. Masqué au-dessus de 760px : le nav desktop
+   reste exactement celui d'avant. Cible tactile 44x44. */
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -.6rem;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--anthracite);
+}
+
+/* Trois filets qui pivotent en croix. Aucune image, aucune police d'icônes. */
+.nav-toggle-icon,
+.nav-toggle-icon::before,
+.nav-toggle-icon::after {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: currentColor;
+}
+.nav-toggle-icon { position: relative; transition: background-color .2s ease; }
+.nav-toggle-icon::before,
+.nav-toggle-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  transition: transform .25s ease;
+}
+.nav-toggle-icon::before { top: -8px; }
+.nav-toggle-icon::after  { top: 8px; }
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-icon { background: transparent; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-icon::before { transform: translateY(8px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle-icon::after  { transform: translateY(-8px) rotate(-45deg); }
+
+/* Page figée derrière l'overlay, position de défilement préservée par le JS */
+body[data-nav-open="true"] {
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
 /* ==========================================================
    05. HERO (accueil)
    ========================================================== */
@@ -601,14 +650,80 @@ a { color: inherit; }
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .site-nav a::after, .btn, .contact-value, .link-more .arrow { transition: none; }
+  .site-nav, .nav-toggle-icon,
+  .nav-toggle-icon::before, .nav-toggle-icon::after { transition: none; }
 }
 
 /* ==========================================================
    21. RESPONSIVE
    ========================================================== */
 @media (max-width: 760px) {
-  .site-nav { margin-left: 0; flex-basis: 100%; order: 3; padding-top: .75rem; }
-  .lang-switch { margin-left: auto; }
+  /* Le sélecteur FR/EN reste dans l'en-tête, jamais rangé dans le menu */
+  .nav-toggle  { display: inline-flex; order: 3; }
+  .lang-switch { margin-left: auto; order: 2; }
+
+  /* Nav en overlay plein écran */
+  .site-nav {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    margin-left: 0;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 0;
+    padding: 6rem var(--gutter) var(--gutter);
+    background: var(--lagoon);
+    overflow-y: auto;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .25s ease, visibility .25s ease;
+  }
+  .site-nav[data-open="true"] { visibility: visible; opacity: 1; }
+
+  .site-nav a {
+    width: 100%;
+    padding-block: clamp(.85rem, 3.5vw, 1.15rem);
+    border-top: 1px solid var(--rule-on-dark);
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 7vw, 2.3rem);
+    font-weight: 460;
+    line-height: 1.1;
+    letter-spacing: -.01em;
+    color: var(--cream);
+    white-space: normal;
+  }
+  .site-nav a:last-child { border-bottom: 1px solid var(--rule-on-dark); }
+  .site-nav a::after { display: none; }
+
+  /* Page courante : même traitement que le nav desktop (graisse + filet),
+     en crème plutôt qu'en corail — le corail ne tient que 2.72:1 sur lagon,
+     sous le seuil de 3:1 même pour du grand texte. */
+  .site-nav a[aria-current="page"] {
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+    text-decoration-color: var(--cream);
+  }
+
+  /* En-tête au-dessus de l'overlay : le ✕ et FR/EN restent atteignables */
+  body[data-nav-open="true"] .site-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 30;
+    background: var(--lagoon);
+    border-bottom-color: var(--rule-on-dark);
+  }
+  body[data-nav-open="true"] .wordmark,
+  body[data-nav-open="true"] .nav-toggle { color: var(--cream); }
+  body[data-nav-open="true"] .lang-btn { color: var(--muted-on-dark); }
+  body[data-nav-open="true"] .lang-btn:hover { color: var(--cream); }
+  body[data-nav-open="true"] .lang-btn[aria-pressed="true"] {
+    color: var(--coral);
+    text-decoration-color: var(--cream);
+  }
+  body[data-nav-open="true"] .lang-sep { color: rgba(250, 246, 239, .5); }
 
   .hero-foot { grid-template-columns: 1fr; }
   .hero-cta { justify-self: start; }
