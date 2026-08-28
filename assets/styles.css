@@ -252,13 +252,15 @@ a { color: inherit; }
 .nav-toggle[aria-expanded="true"] .nav-toggle-icon::before { transform: translateY(8px) rotate(45deg); }
 .nav-toggle[aria-expanded="true"] .nav-toggle-icon::after  { transform: translateY(-8px) rotate(-45deg); }
 
-/* Page figée derrière l'overlay, position de défilement préservée par le JS */
-body[data-nav-open="true"] {
-  position: fixed;
-  left: 0;
-  right: 0;
-  width: 100%;
+/* Défilement figé pendant que le menu est ouvert.
+   Volontairement SANS position:fixed sur <body> : sur Safari iOS, un
+   élément en position:fixed imbriqué dans un ancêtre lui-même fixe n'est
+   pas rendu de façon fiable — c'est ce qui rendait l'en-tête invisible.
+   La position de défilement est mémorisée et restaurée par le JS. */
+html[data-nav-open="true"],
+html[data-nav-open="true"] body {
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 /* ==========================================================
@@ -662,26 +664,44 @@ body[data-nav-open="true"] {
   .nav-toggle  { display: inline-flex; order: 3; }
   .lang-switch { margin-left: auto; order: 2; }
 
-  /* Nav en overlay plein écran */
-  .site-nav {
+  /* Menu fermé : les liens quittent le flux ET l'ordre de tabulation */
+  .site-nav { display: none; }
+
+  /* Menu ouvert : c'est l'EN-TÊTE qui devient plein écran, et les liens
+     coulent à l'intérieur. Un seul élément en position:fixed, donc les
+     commandes (✕, FR/EN, wordmark) et les liens sont dans le même calque :
+     il est structurellement impossible que les liens s'affichent sans que
+     le bouton de fermeture s'affiche aussi. */
+  html[data-nav-open="true"] .site-header {
     position: fixed;
     inset: 0;
-    z-index: 20;
-    margin-left: 0;
-    flex-direction: column;
-    justify-content: center;
-    flex-wrap: nowrap;
-    gap: 0;
-    padding: 6rem var(--gutter) var(--gutter);
+    z-index: 40;
     background: var(--lagoon);
+    border-bottom: none;
     overflow-y: auto;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity .25s ease, visibility .25s ease;
+    overscroll-behavior: contain;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
-  .site-nav[data-open="true"] { visibility: visible; opacity: 1; }
 
-  .site-nav a {
+  html[data-nav-open="true"] .header-grid {
+    align-items: flex-start;
+    align-content: flex-start;
+    min-height: 100%;
+    padding-bottom: var(--gutter);
+  }
+
+  html[data-nav-open="true"] .site-nav {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    flex-basis: 100%;
+    order: 4;
+    gap: 0;
+    margin: clamp(2rem, 7vh, 3.5rem) 0 0;
+  }
+
+  html[data-nav-open="true"] .site-nav a {
     width: 100%;
     padding-block: clamp(.85rem, 3.5vw, 1.15rem);
     border-top: 1px solid var(--rule-on-dark);
@@ -693,13 +713,11 @@ body[data-nav-open="true"] {
     color: var(--cream);
     white-space: normal;
   }
-  .site-nav a:last-child { border-bottom: 1px solid var(--rule-on-dark); }
-  .site-nav a::after { display: none; }
+  html[data-nav-open="true"] .site-nav a:last-child { border-bottom: 1px solid var(--rule-on-dark); }
+  html[data-nav-open="true"] .site-nav a::after { display: none; }
 
-  /* Page courante : même traitement que le nav desktop (graisse + filet),
-     en crème plutôt qu'en corail — le corail ne tient que 2.72:1 sur lagon,
-     sous le seuil de 3:1 même pour du grand texte. */
-  .site-nav a[aria-current="page"] {
+  /* Page courante : graisse + filet crème (7.05:1), comme le nav desktop */
+  html[data-nav-open="true"] .site-nav a[aria-current="page"] {
     font-weight: 600;
     text-decoration: underline;
     text-decoration-thickness: 2px;
@@ -707,23 +725,16 @@ body[data-nav-open="true"] {
     text-decoration-color: var(--cream);
   }
 
-  /* En-tête au-dessus de l'overlay : le ✕ et FR/EN restent atteignables */
-  body[data-nav-open="true"] .site-header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 30;
-    background: var(--lagoon);
-    border-bottom-color: var(--rule-on-dark);
-  }
-  body[data-nav-open="true"] .wordmark,
-  body[data-nav-open="true"] .nav-toggle { color: var(--cream); }
-  body[data-nav-open="true"] .lang-btn { color: var(--muted-on-dark); }
-  body[data-nav-open="true"] .lang-btn:hover { color: var(--cream); }
-  body[data-nav-open="true"] .lang-btn[aria-pressed="true"] {
+  /* Commandes passées en crème sur le fond lagon */
+  html[data-nav-open="true"] .wordmark,
+  html[data-nav-open="true"] .nav-toggle { color: var(--cream); }
+  html[data-nav-open="true"] .lang-btn { color: var(--muted-on-dark); }
+  html[data-nav-open="true"] .lang-btn:hover { color: var(--cream); }
+  html[data-nav-open="true"] .lang-btn[aria-pressed="true"] {
     color: var(--coral);
     text-decoration-color: var(--cream);
   }
-  body[data-nav-open="true"] .lang-sep { color: rgba(250, 246, 239, .5); }
+  html[data-nav-open="true"] .lang-sep { color: rgba(250, 246, 239, .5); }
 
   .hero-foot { grid-template-columns: 1fr; }
   .hero-cta { justify-self: start; }

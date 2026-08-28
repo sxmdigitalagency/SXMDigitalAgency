@@ -525,15 +525,15 @@ function setNavOpen(open) {
   if (label) navToggle.setAttribute('aria-label', label);
 
   if (open) {
+    /* Marqueur porté par <html> : le verrou de défilement s'applique à
+       html et body, sans passer body en position:fixed (cf. styles.css). */
     scrollLockY = window.scrollY;
-    document.body.style.top = (-scrollLockY) + 'px';
-    document.body.dataset.navOpen = 'true';
+    document.documentElement.dataset.navOpen = 'true';
     document.addEventListener('keydown', onNavKeydown);
     const firstLink = siteNav.querySelector('a[href]');
     if (firstLink) firstLink.focus();
   } else {
-    delete document.body.dataset.navOpen;
-    document.body.style.top = '';
+    delete document.documentElement.dataset.navOpen;
     window.scrollTo(0, scrollLockY);
     document.removeEventListener('keydown', onNavKeydown);
   }
@@ -544,10 +544,14 @@ if (navToggle && siteNav) {
     setNavOpen(navToggle.getAttribute('aria-expanded') !== 'true');
   });
 
-  siteNav.addEventListener('click', function (e) {
-    /* Un lien : on laisse la navigation se faire, l'état est réinitialisé.
-       Le fond de l'overlay : fermeture au clic en dehors des liens. */
-    if (e.target.closest('a[href]') || e.target === siteNav) setNavOpen(false);
+  /* L'en-tête EST le plein écran quand le menu est ouvert : on écoute donc
+     dessus. Un clic sur un lien du menu ferme (la navigation suit) ; un clic
+     dans le vide, en dehors de tout lien ou bouton, ferme également. */
+  siteHeader.addEventListener('click', function (e) {
+    if (document.documentElement.dataset.navOpen !== 'true') return;
+    const hit = e.target.closest('a[href], button');
+    if (!hit) { setNavOpen(false); return; }
+    if (hit.tagName === 'A' && siteNav.contains(hit)) setNavOpen(false);
   });
 
   /* Repasser au-dessus du point de rupture ne doit pas laisser d'état bloqué */
