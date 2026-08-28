@@ -693,21 +693,88 @@ if (calcTabs.length) renderCalc();
 const floatCta = document.querySelector('.float-cta');
 
 if (floatCta && 'IntersectionObserver' in window) {
-  const ctas = document.querySelectorAll('main .btn');
-  const guards = [document.querySelector('.site-footer'), ctas[ctas.length - 1]]
-    .filter(function (el) { return el; });
+  /* Deux raisons distinctes de retirer le bouton, suivies séparément
+     pour qu'aucune ne « libère » le bouton alors que l'autre s'applique
+     encore :
+       end  — le bas de page arrive, le bouton ne doit pas recouvrir le
+              CTA de fin de page ;
+       dark — le bouton survole une section lagon, où son contour ne
+              tient que 2.24:1 (WCAG 1.4.11 demande 3:1). On évite la
+              situation plutôt que d'ajouter une couleur à la palette. */
+  const blocking = { end: new Set(), dark: new Set() };
+  let observers = [];
 
-  if (guards.length) {
-    const seen = new Set();
-    const guardObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) seen.add(entry.target);
-        else seen.delete(entry.target);
-      });
-      floatCta.classList.toggle('is-hidden', seen.size > 0);
-    }, { threshold: 0 });
-    guards.forEach(function (el) { guardObserver.observe(el); });
+  function updateFloat() {
+    floatCta.classList.toggle('is-hidden', blocking.end.size > 0 || blocking.dark.size > 0);
   }
+
+  function trackInto(bucket) {
+    return function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) bucket.add(entry.target);
+        else bucket.delete(entry.target);
+      });
+      updateFloat();
+    };
+  }
+
+  /* Bande verticale réellement occupée par le bouton, exprimée en
+     rootMargin négatif. Sans elle, une section lagon ferait disparaître
+     le bouton dès qu'elle pointe à l'écran, même à l'autre bout. */
+  function buttonBand() {
+    const wasHidden = floatCta.classList.contains('is-hidden');
+    if (wasHidden) floatCta.classList.remove('is-hidden');
+    const r = floatCta.getBoundingClientRect();
+    if (wasHidden) floatCta.classList.add('is-hidden');
+
+    /* Bouton non mesurable (menu ouvert, display:none) : bande de repli
+       sur les cent derniers pixels, là où il se trouve normalement. */
+    if (!r.height) {
+      return '-' + Math.max(0, Math.round(window.innerHeight - 100)) + 'px 0px 0px 0px';
+    }
+    const top = Math.max(0, Math.round(r.top));
+    const bottom = Math.max(0, Math.round(window.innerHeight - r.bottom));
+    return '-' + top + 'px 0px -' + bottom + 'px 0px';
+  }
+
+  function buildFloatObservers() {
+    observers.forEach(function (o) { o.disconnect(); });
+    observers = [];
+    blocking.end.clear();
+    blocking.dark.clear();
+
+    const ctas = document.querySelectorAll('main .btn');
+    const ends = [document.querySelector('.site-footer'), ctas[ctas.length - 1]]
+      .filter(function (el) { return el; });
+
+    if (ends.length) {
+      const endObserver = new IntersectionObserver(trackInto(blocking.end), { threshold: 0 });
+      ends.forEach(function (el) { endObserver.observe(el); });
+      observers.push(endObserver);
+    }
+
+    const darkSections = document.querySelectorAll('.section-dark');
+    if (darkSections.length) {
+      const darkObserver = new IntersectionObserver(trackInto(blocking.dark), {
+        threshold: 0,
+        rootMargin: buttonBand()
+      });
+      darkSections.forEach(function (el) { darkObserver.observe(el); });
+      observers.push(darkObserver);
+    }
+
+    updateFloat();
+  }
+
+  buildFloatObservers();
+
+  /* La bande dépend de la hauteur de fenêtre : sans recalcul, un
+     redimensionnement laisserait l'observateur sur une bande périmée. */
+  let floatResizeTimer = null;
+  window.addEventListener('resize', function () {
+    if (floatResizeTimer) clearTimeout(floatResizeTimer);
+    floatResizeTimer = setTimeout(buildFloatObservers, 200);
+  });
 }
 
 /* ==========================================================
