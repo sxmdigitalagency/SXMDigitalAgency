@@ -22,6 +22,8 @@ const I18N = {
     "meta.seo-local.description": "Diagnostic et mise en place de référencement local pour être trouvé sur Google à Saint-Martin : fiche Google Business, structure technique, visibilité.",
     "meta.automatisations.title": "Automatisations IA et logiciels métier — SXM Digital",
     "meta.automatisations.description": "Automatisations et logiciels métier sur mesure pour les commerces de Saint-Martin — des outils construits pour vos besoins réels, pas un logiciel générique.",
+    "meta.calculateur.title": "Calculateur de perte — SXM Digital",
+    "meta.calculateur.description": "Estimez ce que vous coûtent un site absent, une tâche répétitive non automatisée ou un manque de visibilité sur Google — avec vos chiffres, pas des statistiques.",
     "meta.faq.title": "Questions fréquentes — SXM Digital",
     "meta.faq.description": "Réponses aux questions fréquentes sur les sites web, le référencement et les automatisations SXM Digital Agency : délais, tarifs, domaine, paiement.",
     "meta.contact.title": "Contact — SXM Digital",
@@ -33,6 +35,7 @@ const I18N = {
     "nav.sites": "Sites web",
     "nav.seo": "Référencement",
     "nav.auto": "Automatisations",
+    "nav.calc": "Calculateur",
     "nav.faq": "FAQ",
     "nav.contact": "Contact",
 
@@ -206,6 +209,46 @@ const I18N = {
     "faq.q7": "Le site m’appartient une fois payé&nbsp;?",
     "faq.a7": "Le nom de domaine vous appartient (je vous conseille de l’acheter vous-même). Le code source du site est disponible sur demande.",
 
+    /* ---------- Calculateur ----------
+       Les résultats sont des gabarits : {amount}, {price} et {months}
+       sont remplis à l'exécution à partir des valeurs saisies. */
+    "calc.eyebrow": "Outil",
+    "calc.title": "Combien ça vous coûte de ne rien faire&nbsp;?",
+    "calc.lead": "Un calcul simple, avec vos propres chiffres. Pas une statistique du secteur — juste votre situation.",
+    "calc.tablistLabel": "Type de perte à estimer",
+    "calc.tab.web": "Sites web",
+    "calc.tab.auto": "Automatisations",
+    "calc.tab.seo": "SEO local",
+    "calc.empty": "Renseignez vos chiffres pour voir le résultat.",
+    "calc.cta": "Parlons de votre projet",
+    "calc.more": "Voir le détail du service",
+    "calc.float": "Calculez votre perte",
+
+    "calc.web.intro": "Combien de temps passez-vous à répondre aux mêmes questions par téléphone ou message, faute d’un site qui répond à votre place&nbsp;?",
+    "calc.web.f1": "Heures par semaine passées sur ces questions",
+    "calc.web.ph1": "ex: 5",
+    "calc.web.f2": "Valeur de votre heure (€)",
+    "calc.web.result": "Vous perdez environ {amount} par mois en temps.",
+    "calc.web.fix": "Ce problème se règle à partir de {price} — un coût unique.",
+    "calc.web.fixAmortized": "Ce problème se règle à partir de {price} — un coût unique, amorti en {months} mois au rythme de cette perte.",
+
+    "calc.auto.intro": "Combien vous coûte cette tâche répétitive chaque mois&nbsp;?",
+    "calc.auto.f1": "Heures par semaine consacrées à cette tâche",
+    "calc.auto.ph1": "ex: 3",
+    "calc.auto.f2": "Valeur de votre heure (€)",
+    "calc.auto.result": "Cette tâche vous coûte environ {amount} par mois.",
+    "calc.auto.fix": "On l’automatise à partir de {price}/mois — à comparer directement à ce que vous perdez déjà chaque mois.",
+
+    "calc.seo.intro": "Combien de nouveaux clients pensez-vous manquer chaque mois, faute d’être visible sur Google&nbsp;?",
+    "calc.seo.f1": "Valeur moyenne d’un client pour vous (€)",
+    "calc.seo.ph1": "ex: 50",
+    "calc.seo.f2": "Votre estimation&nbsp;: clients manqués par mois",
+    "calc.seo.ph2": "ex: 4",
+    "calc.seo.note": "Ce chiffre est votre propre estimation, pas une donnée mesurée — utile pour visualiser un ordre de grandeur, pas une garantie.",
+    "calc.seo.result": "D’après votre estimation, vous perdriez environ {amount} par mois.",
+    "calc.seo.fix": "Passer au niveau supérieur commence à {price} — un coût unique.",
+    "calc.seo.fixAmortized": "Passer au niveau supérieur commence à {price} — un coût unique, amorti en {months} mois au rythme de cette perte estimée.",
+
     /* ---------- Contact ---------- */
     "ct.eyebrow": "Contact",
     "ct.title": "Parlez-nous de votre commerce.",
@@ -228,6 +271,8 @@ const I18N = {
     "meta.seo-local.description": "Local SEO audit and setup so customers find you on Google in Saint-Martin: Google Business profile, technical structure, visibility.",
     "meta.automatisations.title": "AI automation and custom software — SXM Digital",
     "meta.automatisations.description": "Custom automation and business software for Saint-Martin businesses — tools built around what you actually need, not generic software.",
+    "meta.calculateur.title": "Loss calculator — SXM Digital",
+    "meta.calculateur.description": "Work out what a missing website, a manual repetitive task or poor Google visibility actually costs you — using your own numbers, not industry statistics.",
     "meta.faq.title": "Frequently asked questions — SXM Digital",
     "meta.faq.description": "Answers to common questions about websites, local SEO and automation at SXM Digital Agency: timelines, pricing, domain names, payment.",
     "meta.contact.title": "Contact — SXM Digital",
@@ -239,6 +284,7 @@ const I18N = {
     "nav.sites": "Websites",
     "nav.seo": "Local SEO",
     "nav.auto": "Automation",
+    "nav.calc": "Calculator",
     "nav.faq": "FAQ",
     "nav.contact": "Contact",
 
@@ -412,6 +458,86 @@ const I18N = {
     "faq.q7": "Do I own the site once it is paid for?",
     "faq.a7": "The domain name is yours (I recommend buying it yourself). The site’s source code is available on request.",
 
+    /* ---------- Calculateur ----------
+       Les résultats sont des gabarits : {amount}, {price} et {months}
+       sont remplis à l'exécution à partir des valeurs saisies. */
+    "calc.eyebrow": "Outil",
+    "calc.title": "Combien ça vous coûte de ne rien faire&nbsp;?",
+    "calc.lead": "Un calcul simple, avec vos propres chiffres. Pas une statistique du secteur — juste votre situation.",
+    "calc.tablistLabel": "Type de perte à estimer",
+    "calc.tab.web": "Sites web",
+    "calc.tab.auto": "Automatisations",
+    "calc.tab.seo": "SEO local",
+    "calc.empty": "Renseignez vos chiffres pour voir le résultat.",
+    "calc.cta": "Parlons de votre projet",
+    "calc.more": "Voir le détail du service",
+    "calc.float": "Calculez votre perte",
+
+    "calc.web.intro": "Combien de temps passez-vous à répondre aux mêmes questions par téléphone ou message, faute d’un site qui répond à votre place&nbsp;?",
+    "calc.web.f1": "Heures par semaine passées sur ces questions",
+    "calc.web.ph1": "ex: 5",
+    "calc.web.f2": "Valeur de votre heure (€)",
+    "calc.web.result": "Vous perdez environ {amount} par mois en temps.",
+    "calc.web.fix": "Ce problème se règle à partir de {price} — un coût unique.",
+    "calc.web.fixAmortized": "Ce problème se règle à partir de {price} — un coût unique, amorti en {months} mois au rythme de cette perte.",
+
+    "calc.auto.intro": "Combien vous coûte cette tâche répétitive chaque mois&nbsp;?",
+    "calc.auto.f1": "Heures par semaine consacrées à cette tâche",
+    "calc.auto.ph1": "ex: 3",
+    "calc.auto.f2": "Valeur de votre heure (€)",
+    "calc.auto.result": "Cette tâche vous coûte environ {amount} par mois.",
+    "calc.auto.fix": "On l’automatise à partir de {price}/mois — à comparer directement à ce que vous perdez déjà chaque mois.",
+
+    "calc.seo.intro": "Combien de nouveaux clients pensez-vous manquer chaque mois, faute d’être visible sur Google&nbsp;?",
+    "calc.seo.f1": "Valeur moyenne d’un client pour vous (€)",
+    "calc.seo.ph1": "ex: 50",
+    "calc.seo.f2": "Votre estimation&nbsp;: clients manqués par mois",
+    "calc.seo.ph2": "ex: 4",
+    "calc.seo.note": "Ce chiffre est votre propre estimation, pas une donnée mesurée — utile pour visualiser un ordre de grandeur, pas une garantie.",
+    "calc.seo.result": "D’après votre estimation, vous perdriez environ {amount} par mois.",
+    "calc.seo.fix": "Passer au niveau supérieur commence à {price} — un coût unique.",
+    "calc.seo.fixAmortized": "Passer au niveau supérieur commence à {price} — un coût unique, amorti en {months} mois au rythme de cette perte estimée.",
+
+    /* ---------- Calculator ----------
+       Results are templates: {amount}, {price} and {months} are filled
+       in at runtime from the visitor's own figures. */
+    "calc.eyebrow": "Tool",
+    "calc.title": "What is doing nothing costing you?",
+    "calc.lead": "A simple calculation, with your own figures. Not an industry statistic — just your situation.",
+    "calc.tablistLabel": "Type of loss to estimate",
+    "calc.tab.web": "Websites",
+    "calc.tab.auto": "Automation",
+    "calc.tab.seo": "Local SEO",
+    "calc.empty": "Enter your figures to see the result.",
+    "calc.cta": "Let’s talk about your project",
+    "calc.more": "See the full service",
+    "calc.float": "Calculate your loss",
+
+    "calc.web.intro": "How much time do you spend answering the same questions by phone or message, for want of a website that answers for you?",
+    "calc.web.f1": "Hours a week spent on those questions",
+    "calc.web.ph1": "e.g. 5",
+    "calc.web.f2": "What your hour is worth (€)",
+    "calc.web.result": "You are losing roughly {amount} a month in time.",
+    "calc.web.fix": "That is solved from {price} — a one-off cost.",
+    "calc.web.fixAmortized": "That is solved from {price} — a one-off cost, paid back in {months} months at the rate you are losing.",
+
+    "calc.auto.intro": "What is this repetitive task costing you every month?",
+    "calc.auto.f1": "Hours a week spent on this task",
+    "calc.auto.ph1": "e.g. 3",
+    "calc.auto.f2": "What your hour is worth (€)",
+    "calc.auto.result": "This task costs you roughly {amount} a month.",
+    "calc.auto.fix": "We automate it from {price}/month — compare that directly with what you are already losing every month.",
+
+    "calc.seo.intro": "How many new customers do you think you miss each month, for want of being visible on Google?",
+    "calc.seo.f1": "What one customer is worth to you on average (€)",
+    "calc.seo.ph1": "e.g. 50",
+    "calc.seo.f2": "Your estimate: customers missed per month",
+    "calc.seo.ph2": "e.g. 4",
+    "calc.seo.note": "This figure is your own estimate, not measured data — useful to picture an order of magnitude, not a guarantee.",
+    "calc.seo.result": "Going by your estimate, you would be losing roughly {amount} a month.",
+    "calc.seo.fix": "Stepping up starts at {price} — a one-off cost.",
+    "calc.seo.fixAmortized": "Stepping up starts at {price} — a one-off cost, paid back in {months} months at the rate of that estimated loss.",
+
     /* ---------- Contact ---------- */
     "ct.eyebrow": "Contact",
     "ct.title": "Tell us about your business.",
@@ -424,16 +550,169 @@ const I18N = {
 };
 
 /* ==========================================================
-   BASCULE DE LANGUE
-   FR par défaut, choix persisté dans localStorage.
+   ÉTAT PARTAGÉ
+   Déclaré avant tout code qui l'utilise : le calculateur s'exécute
+   au chargement et lit currentLang.
    ========================================================== */
-const langButtons = { fr: document.getElementById('lang-fr'), en: document.getElementById('lang-en') };
 
 /* Identifiant de la page courante, pour les métadonnées */
 const PAGE = document.body.dataset.page || 'home';
 
-/* Langue affichée : le libellé du bouton de menu la suit */
+/* Langue affichée : les libellés et les résultats la suivent */
 let currentLang = 'fr';
+
+/* ==========================================================
+   CALCULATEUR DE PERTE
+   Aucun coefficient sectoriel, aucune moyenne inventée : tous les
+   montants affichés sont le produit direct des valeurs saisies.
+   Les tarifs vivent ici, en un seul endroit.
+   ========================================================== */
+const PRICES = { web: 800, seo: 1500, auto: 200 };
+
+const CALC = {
+  web:  { inputs: ['calc-web-hours',  'calc-web-rate'],    price: PRICES.web,  amortize: true  },
+  auto: { inputs: ['calc-auto-hours', 'calc-auto-rate'],   price: PRICES.auto, amortize: false },
+  seo:  { inputs: ['calc-seo-value',  'calc-seo-clients'], price: PRICES.seo,  amortize: true  }
+};
+
+/* Une valeur n'est retenue que si elle est finie et strictement positive :
+   un champ vide, à zéro ou négatif ne produit aucun résultat. */
+function calcValue(el) {
+  if (!el) return null;
+  const v = parseFloat(el.value);
+  return Number.isFinite(v) && v > 0 ? v : null;
+}
+
+function calcMoney(n, lang) {
+  const v = Math.round(n);
+  return lang === 'en' ? '€' + v.toLocaleString('en-US') : v.toLocaleString('fr-FR') + '€';
+}
+
+function calcPrice(n, lang) {
+  return lang === 'en' ? '€' + n.toLocaleString('en-US') : n + '€';
+}
+
+function calcFill(tpl, vars) {
+  return tpl.replace(/\{(\w+)\}/g, function (m, k) {
+    return Object.prototype.hasOwnProperty.call(vars, k) ? vars[k] : m;
+  });
+}
+
+/* Sites web et automatisations : heures hebdomadaires ramenées au mois
+   (x4). SEO : valeur d'un client x nombre de clients, déjà mensuel. */
+function calcLoss(id, a, b) {
+  return id === 'seo' ? a * b : a * b * 4;
+}
+
+function renderCalc() {
+  const dict = I18N[currentLang];
+  if (!dict) return;
+
+  Object.keys(CALC).forEach(function (id) {
+    const cfg    = CALC[id];
+    const result = document.getElementById('calc-' + id + '-result');
+    const fix    = document.getElementById('calc-' + id + '-fix');
+    if (!result || !fix) return;
+
+    const a = calcValue(document.getElementById(cfg.inputs[0]));
+    const b = calcValue(document.getElementById(cfg.inputs[1]));
+    const loss = (a === null || b === null) ? null : calcLoss(id, a, b);
+
+    /* Champ manquant, valeur nulle ou négative, ou débordement
+       numérique : état neutre plutôt qu'un résultat absurde. */
+    if (loss === null || !Number.isFinite(loss) || loss <= 0) {
+      result.textContent = dict['calc.empty'];
+      result.dataset.state = 'empty';
+      fix.hidden = true;
+      fix.textContent = '';
+      return;
+    }
+
+    result.textContent = calcFill(dict['calc.' + id + '.result'], {
+      amount: calcMoney(loss, currentLang)
+    });
+    result.dataset.state = 'ok';
+
+    const price = calcPrice(cfg.price, currentLang);
+    const months = cfg.price / loss;
+
+    /* Amortissement affiché seulement s'il est crédible : au moins un
+       mois, au plus vingt-quatre. Sinon la phrase est omise. */
+    if (cfg.amortize && Number.isFinite(months) && months >= 1 && months <= 24) {
+      fix.textContent = calcFill(dict['calc.' + id + '.fixAmortized'], {
+        price: price, months: String(Math.round(months))
+      });
+    } else {
+      fix.textContent = calcFill(dict['calc.' + id + '.fix'], { price: price });
+    }
+    fix.hidden = false;
+  });
+}
+
+/* ---------- Onglets ---------- */
+const calcTabs = Array.prototype.slice.call(document.querySelectorAll('.calc-tab'));
+
+function selectCalcTab(tab, focus) {
+  calcTabs.forEach(function (t) {
+    const on = t === tab;
+    t.setAttribute('aria-selected', String(on));
+    t.tabIndex = on ? 0 : -1;
+    const panel = document.getElementById(t.getAttribute('aria-controls'));
+    if (panel) panel.hidden = !on;
+  });
+  if (focus) tab.focus();
+}
+
+calcTabs.forEach(function (tab, i) {
+  tab.addEventListener('click', function () { selectCalcTab(tab, false); });
+  tab.addEventListener('keydown', function (e) {
+    let next = null;
+    if (e.key === 'ArrowRight') next = calcTabs[(i + 1) % calcTabs.length];
+    else if (e.key === 'ArrowLeft') next = calcTabs[(i - 1 + calcTabs.length) % calcTabs.length];
+    else if (e.key === 'Home') next = calcTabs[0];
+    else if (e.key === 'End') next = calcTabs[calcTabs.length - 1];
+    if (next) { e.preventDefault(); selectCalcTab(next, true); }
+  });
+});
+
+/* ---------- Saisie ---------- */
+document.querySelectorAll('.calc-field input').forEach(function (input) {
+  input.addEventListener('input', renderCalc);
+});
+
+if (calcTabs.length) renderCalc();
+
+/* ==========================================================
+   BOUTON FLOTTANT
+   Masqué quand le menu plein écran est ouvert (règle CSS) et
+   quand le bas de page arrive, pour ne jamais recouvrir le CTA
+   de fin de page.
+   ========================================================== */
+const floatCta = document.querySelector('.float-cta');
+
+if (floatCta && 'IntersectionObserver' in window) {
+  const ctas = document.querySelectorAll('main .btn');
+  const guards = [document.querySelector('.site-footer'), ctas[ctas.length - 1]]
+    .filter(function (el) { return el; });
+
+  if (guards.length) {
+    const seen = new Set();
+    const guardObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) seen.add(entry.target);
+        else seen.delete(entry.target);
+      });
+      floatCta.classList.toggle('is-hidden', seen.size > 0);
+    }, { threshold: 0 });
+    guards.forEach(function (el) { guardObserver.observe(el); });
+  }
+}
+
+/* ==========================================================
+   BASCULE DE LANGUE
+   FR par défaut, choix persisté dans localStorage.
+   ========================================================== */
+const langButtons = { fr: document.getElementById('lang-fr'), en: document.getElementById('lang-en') };
 
 function setLang(lang) {
   const dict = I18N[lang];
@@ -451,6 +730,11 @@ function setLang(lang) {
     if (value !== undefined) el.setAttribute('aria-label', value);
   });
 
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+    const value = dict[el.dataset.i18nPlaceholder];
+    if (value !== undefined) el.setAttribute('placeholder', value);
+  });
+
   document.documentElement.lang = lang;
 
   const title = dict['meta.' + PAGE + '.title'];
@@ -463,6 +747,10 @@ function setLang(lang) {
   Object.keys(langButtons).forEach(function (key) {
     if (langButtons[key]) langButtons[key].setAttribute('aria-pressed', String(key === lang));
   });
+
+  /* Les résultats sont produits par gabarit : ils doivent être refaits
+     dans la nouvelle langue, sans repasser par data-i18n. */
+  if (typeof renderCalc === 'function') renderCalc();
 
   try { localStorage.setItem('sxm-lang', lang); } catch (e) { /* stockage indisponible */ }
 }

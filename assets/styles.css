@@ -131,7 +131,7 @@ a { color: inherit; }
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  column-gap: 2.5rem;
+  column-gap: clamp(1.25rem, 2.6vw, 2.5rem);
   row-gap: .35rem;
   padding-block: 1.35rem;
 }
@@ -639,6 +639,151 @@ html[data-nav-open="true"] body {
 }
 
 /* ==========================================================
+   22. CALCULATEUR
+   ========================================================== */
+.calc-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--rule-on-light);
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+.calc-tab {
+  appearance: none;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  margin-right: clamp(1.25rem, 3vw, 2.5rem);
+  padding: .9rem 0;
+  font-family: var(--font-body);
+  font-size: .95rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--muted-on-light);
+  cursor: pointer;
+}
+.calc-tab:hover { color: var(--anthracite); }
+.calc-tab[aria-selected="true"] {
+  color: var(--lagoon);
+  border-bottom-color: var(--lagoon);
+  cursor: default;
+}
+
+.calc-intro {
+  max-width: 54ch;
+  color: var(--muted-on-light);
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+
+.calc-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: clamp(1.25rem, 3vw, 2rem);
+  max-width: 44rem;
+}
+
+.calc-field { display: flex; flex-direction: column; gap: .6rem; }
+
+.calc-field > span {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+
+.calc-field input {
+  width: 100%;
+  padding: .85rem 1rem;
+  border: 1px solid var(--rule-on-light);
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 460;
+  color: var(--anthracite);
+}
+.calc-field input:focus-visible { outline: 2px solid var(--lagoon); outline-offset: 2px; }
+
+/* Avertissement : présent, mais volontairement moins proéminent */
+.calc-note {
+  margin-top: 1.25rem;
+  max-width: 54ch;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--muted-on-light);
+}
+
+.calc-result {
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+  padding-top: clamp(1.5rem, 4vw, 2rem);
+  border-top: 1px solid var(--rule-on-light);
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-weight: 460;
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  color: var(--lagoon);
+  max-width: 26ch;
+}
+
+/* État neutre : ce n'est pas un résultat, il ne doit pas en avoir l'air */
+.calc-result[data-state="empty"] {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: 0;
+  color: var(--muted-on-light);
+  max-width: 42ch;
+}
+
+.calc-fix { margin-top: 1.25rem; max-width: 52ch; color: var(--muted-on-light); }
+
+.calc-actions {
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem 2rem;
+}
+.calc-actions .link-more { margin-top: 0; }
+
+/* ==========================================================
+   23. BOUTON FLOTTANT
+   Anthracite : se détache aussi bien du crème que du lagon.
+   ========================================================== */
+.float-cta {
+  position: fixed;
+  right: clamp(1rem, 4vw, 2.25rem);
+  bottom: clamp(1rem, 4vw, 2.25rem);
+  z-index: 15;
+  display: inline-block;
+  padding: .95rem 1.4rem;
+  background: var(--anthracite);
+  color: var(--cream);
+  border: 1px solid var(--cream);
+  font-size: .9rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  text-decoration: none;
+  transition: opacity .2s ease, transform .2s ease, background-color .18s ease;
+}
+.float-cta:hover { background: var(--lagoon); }
+
+/* Bas de page atteint : on libère le CTA de fin de page */
+.float-cta.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+/* Menu plein écran ouvert : le bouton ne doit pas flotter par-dessus */
+html[data-nav-open="true"] .float-cta { display: none; }
+
+/* ==========================================================
    20. APPARITION AU DÉFILEMENT (discrète)
    ========================================================== */
 .reveal {
@@ -652,6 +797,7 @@ html[data-nav-open="true"] body {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .site-nav a::after, .btn, .contact-value, .link-more .arrow { transition: none; }
+  .float-cta { transition: none; }
   .site-nav, .nav-toggle-icon,
   .nav-toggle-icon::before, .nav-toggle-icon::after { transition: none; }
 }
