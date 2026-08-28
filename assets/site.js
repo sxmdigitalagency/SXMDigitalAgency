@@ -239,11 +239,11 @@ const I18N = {
     "calc.auto.result": "Cette tâche vous coûte environ {amount} par mois.",
     "calc.auto.fix": "On l’automatise à partir de {price}/mois — à comparer directement à ce que vous perdez déjà chaque mois.",
 
-    "calc.seo.intro": "Combien de nouveaux clients pensez-vous manquer chaque mois, faute d’être visible sur Google&nbsp;?",
+    "calc.seo.intro": "Combien de nouveaux clients pensez-vous manquer chaque jour, faute d’être visible sur Google&nbsp;?",
     "calc.seo.f1": "Valeur moyenne d’un client pour vous (€)",
     "calc.seo.ph1": "ex: 50",
-    "calc.seo.f2": "Votre estimation&nbsp;: clients manqués par mois",
-    "calc.seo.ph2": "ex: 4",
+    "calc.seo.f2": "Votre estimation&nbsp;: clients manqués par jour",
+    "calc.seo.ph2": "ex: 1",
     "calc.seo.note": "Ce chiffre est votre propre estimation, pas une donnée mesurée — utile pour visualiser un ordre de grandeur, pas une garantie.",
     "calc.seo.result": "D’après votre estimation, vous perdriez environ {amount} par mois.",
     "calc.seo.fix": "Passer au niveau supérieur commence à {price} — un coût unique.",
@@ -488,11 +488,11 @@ const I18N = {
     "calc.auto.result": "Cette tâche vous coûte environ {amount} par mois.",
     "calc.auto.fix": "On l’automatise à partir de {price}/mois — à comparer directement à ce que vous perdez déjà chaque mois.",
 
-    "calc.seo.intro": "Combien de nouveaux clients pensez-vous manquer chaque mois, faute d’être visible sur Google&nbsp;?",
+    "calc.seo.intro": "Combien de nouveaux clients pensez-vous manquer chaque jour, faute d’être visible sur Google&nbsp;?",
     "calc.seo.f1": "Valeur moyenne d’un client pour vous (€)",
     "calc.seo.ph1": "ex: 50",
-    "calc.seo.f2": "Votre estimation&nbsp;: clients manqués par mois",
-    "calc.seo.ph2": "ex: 4",
+    "calc.seo.f2": "Votre estimation&nbsp;: clients manqués par jour",
+    "calc.seo.ph2": "ex: 1",
     "calc.seo.note": "Ce chiffre est votre propre estimation, pas une donnée mesurée — utile pour visualiser un ordre de grandeur, pas une garantie.",
     "calc.seo.result": "D’après votre estimation, vous perdriez environ {amount} par mois.",
     "calc.seo.fix": "Passer au niveau supérieur commence à {price} — un coût unique.",
@@ -528,11 +528,11 @@ const I18N = {
     "calc.auto.result": "This task costs you roughly {amount} a month.",
     "calc.auto.fix": "We automate it from {price}/month — compare that directly with what you are already losing every month.",
 
-    "calc.seo.intro": "How many new customers do you think you miss each month, for want of being visible on Google?",
+    "calc.seo.intro": "How many new customers do you think you miss each day, for want of being visible on Google?",
     "calc.seo.f1": "What one customer is worth to you on average (€)",
     "calc.seo.ph1": "e.g. 50",
-    "calc.seo.f2": "Your estimate: customers missed per month",
-    "calc.seo.ph2": "e.g. 4",
+    "calc.seo.f2": "Your estimate: missed customers per day",
+    "calc.seo.ph2": "e.g. 1",
     "calc.seo.note": "This figure is your own estimate, not measured data — useful to picture an order of magnitude, not a guarantee.",
     "calc.seo.result": "Going by your estimate, you would be losing roughly {amount} a month.",
     "calc.seo.fix": "Stepping up starts at {price} — a one-off cost.",
@@ -598,10 +598,12 @@ function calcFill(tpl, vars) {
   });
 }
 
-/* Sites web et automatisations : heures hebdomadaires ramenées au mois
-   (x4). SEO : valeur d'un client x nombre de clients, déjà mensuel. */
+/* Conversions d'unité vers le mois, rien d'autre :
+   - sites web et automatisations : heures par semaine, donc x4
+   - SEO : clients par jour, donc x30
+   Aucun de ces facteurs n'est un coefficient d'estimation. */
 function calcLoss(id, a, b) {
-  return id === 'seo' ? a * b : a * b * 4;
+  return id === 'seo' ? a * b * 30 : a * b * 4;
 }
 
 function renderCalc() {

@@ -752,7 +752,8 @@ html[data-nav-open="true"] body {
 
 /* ==========================================================
    23. BOUTON FLOTTANT
-   Anthracite : se détache aussi bien du crème que du lagon.
+   Corail plein, texte anthracite : 6.09:1, au-dessus du seuil AA.
+   Le texte n'est jamais en crème sur corail (2.60:1, insuffisant).
    ========================================================== */
 .float-cta {
   position: fixed;
@@ -761,16 +762,16 @@ html[data-nav-open="true"] body {
   z-index: 15;
   display: inline-block;
   padding: .95rem 1.4rem;
-  background: var(--anthracite);
-  color: var(--cream);
-  border: 1px solid var(--cream);
+  background: var(--coral);
+  color: var(--anthracite);
+  border: 1px solid var(--anthracite);
   font-size: .9rem;
   font-weight: 600;
   letter-spacing: .02em;
   text-decoration: none;
   transition: opacity .2s ease, transform .2s ease, background-color .18s ease;
 }
-.float-cta:hover { background: var(--lagoon); }
+.float-cta:hover { background: var(--anthracite); color: var(--cream); border-color: var(--cream); }
 
 /* Bas de page atteint : on libère le CTA de fin de page */
 .float-cta.is-hidden {
