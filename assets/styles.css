@@ -461,7 +461,17 @@ html[data-nav-open="true"] body {
 }
 .section-dark .edito-item { border-top-color: var(--rule-on-dark); }
 
+.edito-item h2,
 .edito-item h3 { font-size: var(--fs-h3); letter-spacing: -.005em; }
+
+/* Page légale : plusieurs paragraphes par section, et des liens visibles */
+.edito-item p + p { margin-top: 1.1rem; }
+.edito-item a,
+.prose a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
 .edito-item p { color: var(--muted-on-light); max-width: 54ch; }
 .section-dark .edito-item p { color: var(--muted-on-dark); }
 

@@ -26,6 +26,8 @@ const I18N = {
     "meta.calculateur.description": "Estimez ce que vous coûtent un site absent, une tâche répétitive non automatisée ou un manque de visibilité sur Google — avec vos chiffres, pas des statistiques.",
     "meta.faq.title": "Questions fréquentes — SXM Digital",
     "meta.faq.description": "Réponses aux questions fréquentes sur les sites web, le référencement et les automatisations SXM Digital Agency : délais, tarifs, domaine, paiement.",
+    "meta.mentions-legales.title": "Mentions légales — SXM Digital",
+    "meta.mentions-legales.description": "Éditeur, hébergeur, données personnelles et propriété intellectuelle du site SXM Digital Agency, entreprise individuelle établie à Saint-Martin.",
     "meta.contact.title": "Contact — SXM Digital",
     "meta.contact.description": "Contactez SXM Digital Agency à Saint-Martin — devis gratuit, échange sans engagement, en français ou en anglais. Sites web, référencement, automatisations.",
 
@@ -38,6 +40,7 @@ const I18N = {
     "nav.calc": "Calculateur",
     "nav.faq": "FAQ",
     "nav.contact": "Contact",
+    "nav.legal": "Mentions légales",
 
     "cta.more": "En savoir plus",
     "cta.visit": "Voir le site",
@@ -249,6 +252,35 @@ const I18N = {
     "calc.seo.fix": "Passer au niveau supérieur commence à {price} — un coût unique.",
     "calc.seo.fixAmortized": "Passer au niveau supérieur commence à {price} — un coût unique, amorti en {months} mois au rythme de cette perte estimée.",
 
+    /* ---------- Mentions légales ----------
+       Contenu réglementaire (LCEN art. 6-III, C. com. art. R.526-27).
+       L'adresse de contact reprend celle de /contact, à l'identique. */
+    "legal.eyebrow": "Informations légales",
+    "legal.title": "Mentions légales",
+
+    "legal.editor.title": "Éditeur du site",
+    "legal.editor.p1": "Le site sxmdigitalagency.com est édité par VASQUEZ PEREZ Mirlène, entrepreneur individuel (EI), immatriculée sous le SIRET 106 977 234 00017.",
+    "legal.editor.p2": "Adresse&nbsp;: Rue Louis Constant Fleming, résidence Hibiscus, bât E4 apt 17, Concordia, 97150 Saint-Martin, France.",
+    "legal.editor.p3": "Contact&nbsp;: <a href=\"mailto:sxmdigital.agency@gmail.com\">sxmdigital.agency@gmail.com</a> — <a href=\"tel:+590690543256\">+590 690 54 32 56</a>.",
+    "legal.editor.p4": "Régime fiscal applicable&nbsp;: TGCA au taux de 4%.",
+
+    "legal.director.title": "Directeur de la publication",
+    "legal.director.p1": "VASQUEZ PEREZ Mirlène.",
+
+    "legal.host.title": "Hébergement",
+    "legal.host.p1": "Le site est hébergé par Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, États-Unis.",
+
+    "legal.data.title": "Données personnelles et cookies",
+    "legal.data.p1": "Ce site n’utilise aucun cookie non essentiel ni outil d’analyse tiers (type Google Analytics ou Meta Pixel). Seuls les journaux techniques standards de l’hébergeur (Cloudflare) sont conservés, à des fins de sécurité et de fonctionnement du service.",
+    "legal.data.p2": "Les informations transmises via le formulaire de contact (ou les coordonnées utilisées pour nous contacter par email, téléphone ou WhatsApp) sont utilisées uniquement pour répondre à votre demande. Elles ne sont ni vendues, ni transmises à des tiers.",
+    "legal.data.p3": "Conformément au RGPD, vous disposez d’un droit d’accès, de rectification et de suppression des données vous concernant. Pour l’exercer, contactez-nous à l’adresse ci-dessus.",
+
+    "legal.ip.title": "Propriété intellectuelle",
+    "legal.ip.p1": "L’ensemble des contenus de ce site (textes, mises en page, code, charte graphique) est la propriété de SXM Digital Agency, sauf mention contraire. Toute reproduction, même partielle, est interdite sans autorisation écrite préalable.",
+
+    "legal.law.title": "Droit applicable",
+    "legal.law.p1": "Les présentes mentions légales sont soumises au droit français. En cas de litige, et à défaut de résolution amiable, les tribunaux compétents seront ceux du ressort applicable.",
+
     /* ---------- Contact ---------- */
     "ct.eyebrow": "Contact",
     "ct.title": "Parlez-nous de votre commerce.",
@@ -275,6 +307,8 @@ const I18N = {
     "meta.calculateur.description": "Work out what a missing website, a manual repetitive task or poor Google visibility actually costs you — using your own numbers, not industry statistics.",
     "meta.faq.title": "Frequently asked questions — SXM Digital",
     "meta.faq.description": "Answers to common questions about websites, local SEO and automation at SXM Digital Agency: timelines, pricing, domain names, payment.",
+    "meta.mentions-legales.title": "Legal notice — SXM Digital",
+    "meta.mentions-legales.description": "Publisher, host, personal data and intellectual property for the SXM Digital Agency website, a sole trader based in Saint-Martin.",
     "meta.contact.title": "Contact — SXM Digital",
     "meta.contact.description": "Get in touch with SXM Digital Agency in Saint-Martin — free quote, a no-strings conversation, in French or English. Websites, SEO, automation.",
 
@@ -287,6 +321,7 @@ const I18N = {
     "nav.calc": "Calculator",
     "nav.faq": "FAQ",
     "nav.contact": "Contact",
+    "nav.legal": "Legal notice",
 
     "cta.more": "Find out more",
     "cta.visit": "Visit the site",
@@ -537,6 +572,35 @@ const I18N = {
     "calc.seo.result": "Going by your estimate, you would be losing roughly {amount} a month.",
     "calc.seo.fix": "Stepping up starts at {price} — a one-off cost.",
     "calc.seo.fixAmortized": "Stepping up starts at {price} — a one-off cost, paid back in {months} months at the rate of that estimated loss.",
+
+    /* ---------- Legal notice ----------
+       Statutory content (French LCEN art. 6-III, C. com. art. R.526-27).
+       Translated so an English-speaking visitor can identify the publisher. */
+    "legal.eyebrow": "Legal information",
+    "legal.title": "Legal notice",
+
+    "legal.editor.title": "Site publisher",
+    "legal.editor.p1": "The site sxmdigitalagency.com is published by VASQUEZ PEREZ Mirlène, sole trader (entrepreneur individuel, EI), registered under SIRET 106 977 234 00017.",
+    "legal.editor.p2": "Address: Rue Louis Constant Fleming, résidence Hibiscus, bât E4 apt 17, Concordia, 97150 Saint-Martin, France.",
+    "legal.editor.p3": "Contact: <a href=\"mailto:sxmdigital.agency@gmail.com\">sxmdigital.agency@gmail.com</a> — <a href=\"tel:+590690543256\">+590 690 54 32 56</a>.",
+    "legal.editor.p4": "Applicable tax regime: TGCA at a rate of 4%.",
+
+    "legal.director.title": "Publication director",
+    "legal.director.p1": "VASQUEZ PEREZ Mirlène.",
+
+    "legal.host.title": "Hosting",
+    "legal.host.p1": "The site is hosted by Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, United States.",
+
+    "legal.data.title": "Personal data and cookies",
+    "legal.data.p1": "This site uses no non-essential cookies and no third-party analytics tools (such as Google Analytics or Meta Pixel). Only the host’s standard technical logs (Cloudflare) are kept, for security and for the service to function.",
+    "legal.data.p2": "Information sent through the contact form (or the details used to reach us by email, phone or WhatsApp) is used solely to answer your enquiry. It is neither sold nor passed on to third parties.",
+    "legal.data.p3": "Under the GDPR, you have the right to access, correct and delete data concerning you. To exercise it, contact us at the address above.",
+
+    "legal.ip.title": "Intellectual property",
+    "legal.ip.p1": "All content on this site (text, layouts, code, visual identity) is the property of SXM Digital Agency, unless stated otherwise. Any reproduction, even partial, is forbidden without prior written permission.",
+
+    "legal.law.title": "Governing law",
+    "legal.law.p1": "This legal notice is governed by French law. In the event of a dispute, and failing an amicable settlement, the competent courts shall be those of the applicable jurisdiction.",
 
     /* ---------- Contact ---------- */
     "ct.eyebrow": "Contact",
