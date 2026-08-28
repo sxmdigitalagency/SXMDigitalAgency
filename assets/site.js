@@ -261,7 +261,10 @@ const I18N = {
     "legal.editor.title": "Éditeur du site",
     "legal.editor.p1": "Le site sxmdigitalagency.com est édité par VASQUEZ PEREZ Mirlène, entrepreneur individuel (EI), immatriculée sous le SIRET 106 977 234 00017.",
     "legal.editor.p2": "Adresse&nbsp;: Rue Louis Constant Fleming, résidence Hibiscus, bât E4 apt 17, Concordia, 97150 Saint-Martin, France.",
-    "legal.editor.p3": "Contact&nbsp;: <a href=\"mailto:sxmdigital.agency@gmail.com\">sxmdigital.agency@gmail.com</a> — <a href=\"tel:+590690543256\">+590 690 54 32 56</a>.",
+    /* Libellé seul : l'adresse reste dans le HTML, où l'obfuscation
+       d'email de Cloudflare peut la réécrire. Un fichier .js ne l'est
+       jamais — l'y placer la laisserait en clair pour les collecteurs. */
+    "legal.editor.p3": "Contact&nbsp;:",
     "legal.editor.p4": "Régime fiscal applicable&nbsp;: TGCA au taux de 4%.",
 
     "legal.director.title": "Directeur de la publication",
@@ -582,7 +585,7 @@ const I18N = {
     "legal.editor.title": "Site publisher",
     "legal.editor.p1": "The site sxmdigitalagency.com is published by VASQUEZ PEREZ Mirlène, sole trader (entrepreneur individuel, EI), registered under SIRET 106 977 234 00017.",
     "legal.editor.p2": "Address: Rue Louis Constant Fleming, résidence Hibiscus, bât E4 apt 17, Concordia, 97150 Saint-Martin, France.",
-    "legal.editor.p3": "Contact: <a href=\"mailto:sxmdigital.agency@gmail.com\">sxmdigital.agency@gmail.com</a> — <a href=\"tel:+590690543256\">+590 690 54 32 56</a>.",
+    "legal.editor.p3": "Contact:",
     "legal.editor.p4": "Applicable tax regime: TGCA at a rate of 4%.",
 
     "legal.director.title": "Publication director",
