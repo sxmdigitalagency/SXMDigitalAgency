@@ -62,9 +62,9 @@ const I18N = {
     "home.s1.name": "Sites web",
     "home.s1.desc": "Vitrine, réservation, présentation en ligne. Des sites rapides, clairs, dessinés pour vous — pas déballés d’un thème. À partir de 800€.",
     "home.s2.name": "Référencement local",
-    "home.s2.desc": "Fiche Google, structure technique, visibilité. Être trouvé par les clients qui cherchent ici, au moment où ils cherchent.",
+    "home.s2.desc": "Fiche Google, structure technique, visibilité. Être trouvé par les clients qui cherchent ici, au moment où ils cherchent. À partir de 1500€.",
     "home.s3.name": "Automatisations &amp; logiciels",
-    "home.s3.desc": "Des outils construits sur mesure pour vos tâches répétitives — pas un logiciel générique auquel s’adapter.",
+    "home.s3.desc": "Des outils construits sur mesure pour vos tâches répétitives — pas un logiciel générique auquel s’adapter. À partir de 200€/mois.",
 
     "home.work.label": "Réalisation",
     "home.work.title": "Une réalisation récente",
@@ -149,8 +149,8 @@ const I18N = {
 
     "seo.price.label": "Tarif",
     "seo.price.title": "Combien ça coûte",
-    "seo.price.figure": "Sur diagnostic",
-    "seo.price.text": "Pas de prix affiché ici — chaque situation de départ est différente (certains commerces n’ont rien, d’autres ont une fiche mal configurée à corriger). Contactez-moi pour un diagnostic.",
+    "seo.price.figure": "À partir de 1500€",
+    "seo.price.text": "Coût unique pour la mise en place. Le prix final dépend de votre situation de départ. Contactez-moi pour un diagnostic et un devis précis.",
 
     /* ---------- Automatisations ---------- */
     "auto.eyebrow": "Service",
@@ -184,8 +184,8 @@ const I18N = {
 
     "auto.price.label": "Tarif",
     "auto.price.title": "Combien ça coûte",
-    "auto.price.figure": "Sur devis",
-    "auto.price.text": "Chaque automatisation dépend entièrement du besoin réel, il n’y a pas de prix générique honnête à afficher ici.",
+    "auto.price.figure": "À partir de 200€/mois",
+    "auto.price.text": "Le prix final dépend de la complexité de l’automatisation. Contactez-moi pour en discuter.",
 
     /* ---------- FAQ ---------- */
     "faq.eyebrow": "Aide",
@@ -268,9 +268,9 @@ const I18N = {
     "home.s1.name": "Websites",
     "home.s1.desc": "Storefront, booking, showing what you offer. Fast, clear sites, designed for you — not unpacked from a theme. From €800.",
     "home.s2.name": "Local SEO",
-    "home.s2.desc": "Google profile, technical structure, visibility. Get found by customers searching here, right when they search.",
+    "home.s2.desc": "Google profile, technical structure, visibility. Get found by customers searching here, right when they search. From €1,500.",
     "home.s3.name": "Automation &amp; software",
-    "home.s3.desc": "Tools built to measure for your repetitive tasks — not generic software you have to bend around.",
+    "home.s3.desc": "Tools built to measure for your repetitive tasks — not generic software you have to bend around. From €200/month.",
 
     "home.work.label": "Recent work",
     "home.work.title": "A recent project",
@@ -355,8 +355,8 @@ const I18N = {
 
     "seo.price.label": "Pricing",
     "seo.price.title": "What it costs",
-    "seo.price.figure": "After an audit",
-    "seo.price.text": "No price listed here — every starting point is different (some businesses have nothing, others have a badly configured profile to fix). Get in touch for an audit.",
+    "seo.price.figure": "From €1,500",
+    "seo.price.text": "A one-off cost for the setup. The final price depends on where you are starting from. Get in touch for an audit and a precise quote.",
 
     /* ---------- Automation ---------- */
     "auto.eyebrow": "Service",
@@ -390,8 +390,8 @@ const I18N = {
 
     "auto.price.label": "Pricing",
     "auto.price.title": "What it costs",
-    "auto.price.figure": "On quote",
-    "auto.price.text": "Every automation depends entirely on the real need — there is no honest generic price to put here.",
+    "auto.price.figure": "From €200/month",
+    "auto.price.text": "The final price depends on how complex the automation is. Get in touch to talk it through.",
 
     /* ---------- FAQ ---------- */
     "faq.eyebrow": "Help",
