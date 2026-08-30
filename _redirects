@@ -1,0 +1,5 @@
+# Cloudflare Pages déploie la racine du dépôt : l'outillage de test y est
+# donc servi. Le préfixe par un point n'y change rien (vérifié).
+# Ces règles rendent ces chemins inaccessibles.
+/.tests/* / 301
+/tests/* / 301
