@@ -628,6 +628,9 @@ const PAGE = document.body.dataset.page || 'home';
 /* Langue affichée : les libellés et les résultats la suivent */
 let currentLang = 'fr';
 
+/* Remplacé par le bouton flottant s'il existe sur la page */
+let refreshFloat = function () {};
+
 /* ==========================================================
    CALCULATEUR DE PERTE
    Aucun coefficient sectoriel, aucune moyenne inventée : tous les
@@ -759,89 +762,141 @@ if (calcTabs.length) renderCalc();
    ========================================================== */
 const floatCta = document.querySelector('.float-cta');
 
-if (floatCta && 'IntersectionObserver' in window) {
-  /* Deux raisons distinctes de retirer le bouton, suivies séparément
-     pour qu'aucune ne « libère » le bouton alors que l'autre s'applique
-     encore :
-       end  — le bas de page arrive, le bouton ne doit pas recouvrir le
-              CTA de fin de page ;
-       dark — le bouton survole une section lagon, où son contour ne
-              tient que 2.24:1 (WCAG 1.4.11 demande 3:1). On évite la
-              situation plutôt que d'ajouter une couleur à la palette. */
-  const blocking = { end: new Set(), dark: new Set() };
-  let observers = [];
+if (floatCta) {
+  /* Marge de garde autour du bouton, pour qu'il ne vienne pas frôler un
+     CTA sans le recouvrir tout à fait. */
+  const AVOID_MARGIN = 12;
+
+  /* Zones à éviter, de trois natures différentes :
+       end  — pied de page et dernier CTA : dès qu'ils entrent dans la
+              fenêtre, le bouton s'efface, pour laisser la fin de page
+              respirer ;
+       dark — sections lagon : le contour du bouton n'y tient que
+              2.72:1, sous le seuil de 3:1 (WCAG 1.4.11) ;
+       cta  — n'importe quel bouton de la page, y compris celui du hero
+              visible au premier affichage : chevauchement réel testé. */
+  const ctas     = Array.prototype.slice.call(document.querySelectorAll('main .btn'));
+  const endZones = [document.querySelector('.site-footer'), ctas[ctas.length - 1]]
+                     .filter(function (el) { return el; });
+  const darkZones = Array.prototype.slice.call(document.querySelectorAll('.section-dark'));
+
+  /* Mesure du bouton hors de son état de repos : au repos il est décalé
+     de 8px, ce qui fausserait la comparaison. */
+  function floatRect() {
+    const shown = floatCta.classList.contains('is-visible');
+    if (!shown) floatCta.classList.add('is-visible');
+    const r = floatCta.getBoundingClientRect();
+    if (!shown) floatCta.classList.remove('is-visible');
+    return (r.width || r.height) ? r : null;
+  }
+
+  function overlaps(a, b, margin) {
+    return !(a.right  < b.left   - margin ||
+             a.left   > b.right  + margin ||
+             a.bottom < b.top    - margin ||
+             a.top    > b.bottom + margin);
+  }
+
+  /* Vérité unique : de la géométrie, calculable à tout moment, y compris
+     avant le premier défilement. L'observateur ne fait que déclencher ce
+     calcul, il ne détient aucun état. */
+  function floatShouldHide() {
+    const btn = floatRect();
+    if (!btn) return true;                       /* non mesurable : on s'abstient */
+
+    const vh = window.innerHeight || 0;
+    for (let i = 0; i < endZones.length; i++) {
+      const r = endZones[i].getBoundingClientRect();
+      if (r.top < vh && r.bottom > 0) return true;
+    }
+    for (let i = 0; i < darkZones.length; i++) {
+      const r = darkZones[i].getBoundingClientRect();
+      if (r.top < btn.bottom && r.bottom > btn.top) return true;
+    }
+    for (let i = 0; i < ctas.length; i++) {
+      if (overlaps(btn, ctas[i].getBoundingClientRect(), AVOID_MARGIN)) return true;
+    }
+    return false;
+  }
 
   function updateFloat() {
-    floatCta.classList.toggle('is-hidden', blocking.end.size > 0 || blocking.dark.size > 0);
+    floatCta.classList.toggle('is-visible', !floatShouldHide());
   }
 
-  function trackInto(bucket) {
-    return function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) bucket.add(entry.target);
-        else bucket.delete(entry.target);
-      });
-      updateFloat();
-    };
-  }
+  /* Exposé pour que le changement de langue, qui modifie la longueur des
+     libellés et donc la mise en page, refasse le calcul. */
+  refreshFloat = updateFloat;
 
-  /* Bande verticale réellement occupée par le bouton, exprimée en
-     rootMargin négatif. Sans elle, une section lagon ferait disparaître
-     le bouton dès qu'elle pointe à l'écran, même à l'autre bout. */
+  /* Bande verticale occupée par le bouton, en rootMargin négatif :
+     l'observateur ne se déclenche que sur cette tranche. */
   function buttonBand() {
-    const wasHidden = floatCta.classList.contains('is-hidden');
-    if (wasHidden) floatCta.classList.remove('is-hidden');
-    const r = floatCta.getBoundingClientRect();
-    if (wasHidden) floatCta.classList.add('is-hidden');
-
-    /* Bouton non mesurable (menu ouvert, display:none) : bande de repli
-       sur les cent derniers pixels, là où il se trouve normalement. */
-    if (!r.height) {
-      return '-' + Math.max(0, Math.round(window.innerHeight - 100)) + 'px 0px 0px 0px';
-    }
+    const r = floatRect();
+    if (!r) return '-' + Math.max(0, Math.round((window.innerHeight || 0) - 100)) + 'px 0px 0px 0px';
     const top = Math.max(0, Math.round(r.top));
-    const bottom = Math.max(0, Math.round(window.innerHeight - r.bottom));
+    const bottom = Math.max(0, Math.round((window.innerHeight || 0) - r.bottom));
     return '-' + top + 'px 0px -' + bottom + 'px 0px';
   }
+
+  let observers = [];
 
   function buildFloatObservers() {
     observers.forEach(function (o) { o.disconnect(); });
     observers = [];
-    blocking.end.clear();
-    blocking.dark.clear();
 
-    const ctas = document.querySelectorAll('main .btn');
-    const ends = [document.querySelector('.site-footer'), ctas[ctas.length - 1]]
-      .filter(function (el) { return el; });
+    if (!('IntersectionObserver' in window)) return;
 
-    if (ends.length) {
-      const endObserver = new IntersectionObserver(trackInto(blocking.end), { threshold: 0 });
-      ends.forEach(function (el) { endObserver.observe(el); });
+    if (endZones.length) {
+      const endObserver = new IntersectionObserver(updateFloat, { threshold: 0 });
+      endZones.forEach(function (el) { endObserver.observe(el); });
       observers.push(endObserver);
     }
 
-    const darkSections = document.querySelectorAll('.section-dark');
-    if (darkSections.length) {
-      const darkObserver = new IntersectionObserver(trackInto(blocking.dark), {
+    const banded = darkZones.concat(ctas);
+    if (banded.length) {
+      const bandObserver = new IntersectionObserver(updateFloat, {
         threshold: 0,
         rootMargin: buttonBand()
       });
-      darkSections.forEach(function (el) { darkObserver.observe(el); });
-      observers.push(darkObserver);
+      banded.forEach(function (el) { bandObserver.observe(el); });
+      observers.push(bandObserver);
     }
-
-    updateFloat();
   }
 
+  /* État initial calculé tout de suite, sans attendre ni défilement ni
+     premier passage de l'observateur : c'est ce qui évite l'apparition
+     du bouton par-dessus le CTA au tout premier rendu. */
+  updateFloat();
   buildFloatObservers();
 
-  /* La bande dépend de la hauteur de fenêtre : sans recalcul, un
-     redimensionnement laisserait l'observateur sur une bande périmée. */
+  /* Le défilement seul ne déclenche pas l'observateur si aucune zone ne
+     franchit la bande ; ce filet garantit un état juste dans tous les cas,
+     à raison d'un calcul par image au plus. */
+  let floatFrame = null;
+  function scheduleFloatUpdate() {
+    if (floatFrame) return;
+    floatFrame = requestAnimationFrame(function () {
+      floatFrame = null;
+      updateFloat();
+    });
+  }
+  window.addEventListener('scroll', scheduleFloatUpdate, { passive: true });
+
   let floatResizeTimer = null;
   window.addEventListener('resize', function () {
     if (floatResizeTimer) clearTimeout(floatResizeTimer);
-    floatResizeTimer = setTimeout(buildFloatObservers, 200);
+    floatResizeTimer = setTimeout(function () {
+      buildFloatObservers();   /* la bande dépend de la hauteur de fenêtre */
+      updateFloat();
+    }, 200);
   });
+
+  /* Les polices web décalent la mise en page en arrivant : on recalcule
+     une fois posées, sinon l'état initial peut reposer sur une mesure
+     faite avec la police de repli. */
+  if (document.fonts && document.fonts.ready && typeof document.fonts.ready.then === 'function') {
+    document.fonts.ready.then(updateFloat).catch(function () {});
+  }
+  window.addEventListener('load', updateFloat);
 }
 
 /* ==========================================================
@@ -887,6 +942,10 @@ function setLang(lang) {
   /* Les résultats sont produits par gabarit : ils doivent être refaits
      dans la nouvelle langue, sans repasser par data-i18n. */
   if (typeof renderCalc === 'function') renderCalc();
+
+  /* Libellés de longueur différente : la mise en page bouge, donc
+     le chevauchement éventuel du bouton flottant aussi. */
+  refreshFloat();
 
   try { localStorage.setItem('sxm-lang', lang); } catch (e) { /* stockage indisponible */ }
 }

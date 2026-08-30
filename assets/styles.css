@@ -780,16 +780,27 @@ html[data-nav-open="true"] body {
   letter-spacing: .02em;
   text-decoration: none;
   transition: opacity .2s ease, transform .2s ease, background-color .18s ease;
-}
-.float-cta:hover { background: var(--anthracite); color: var(--cream); border-color: var(--cream); }
 
-/* Bas de page atteint : on libère le CTA de fin de page */
-.float-cta.is-hidden {
+  /* Caché par défaut : le bouton n'apparaît qu'une fois le JS assuré
+     qu'il ne recouvre rien. C'est l'état de repos, pas une exception —
+     sans JS il reste caché, ce qui vaut mieux qu'un bouton posé en
+     permanence sur un CTA. Les liens du pied de page mènent au
+     calculateur dans ce cas. */
   opacity: 0;
   visibility: hidden;
   transform: translateY(8px);
   pointer-events: none;
 }
+
+/* Seul état visible, ajouté par le JS après vérification */
+.float-cta.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  pointer-events: auto;
+}
+
+.float-cta:hover { background: var(--anthracite); color: var(--cream); border-color: var(--cream); }
 
 /* Menu plein écran ouvert : le bouton ne doit pas flotter par-dessus */
 html[data-nav-open="true"] .float-cta { display: none; }
