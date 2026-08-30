@@ -1,0 +1,11 @@
+{
+  "name": "sxm-digital-tests",
+  "private": true,
+  "description": "Outillage de test du site. Rien de ceci n'est déployé : le site lui-même reste sans dépendance.",
+  "scripts": {
+    "test": "./run.sh"
+  },
+  "devDependencies": {
+    "jsdom": "^24.0.0"
+  }
+}

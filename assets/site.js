@@ -23,7 +23,7 @@ const I18N = {
     "meta.automatisations.title": "Automatisations IA et logiciels métier — SXM Digital",
     "meta.automatisations.description": "Automatisations et logiciels métier sur mesure pour les commerces de Saint-Martin — des outils construits pour vos besoins réels, pas un logiciel générique.",
     "meta.calculateur.title": "Calculateur de perte — SXM Digital",
-    "meta.calculateur.description": "Estimez ce que vous coûtent un site absent, une tâche répétitive non automatisée ou un manque de visibilité sur Google — avec vos chiffres, pas des statistiques.",
+    "meta.calculateur.description": "Estimez ce que vous coûtent un site absent, une tâche non automatisée ou un manque de visibilité sur Google — avec vos chiffres, pas des statistiques.",
     "meta.faq.title": "Questions fréquentes — SXM Digital",
     "meta.faq.description": "Réponses aux questions fréquentes sur les sites web, le référencement et les automatisations SXM Digital Agency : délais, tarifs, domaine, paiement.",
     "meta.mentions-legales.title": "Mentions légales — SXM Digital",
