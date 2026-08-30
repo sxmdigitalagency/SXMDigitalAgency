@@ -1,9 +1,17 @@
 # Outillage de test
 
-Le dossier commence par un point à dessein : Cloudflare Pages déploie la
-racine du dépôt sans étape de build, et n'envoie pas les dossiers cachés.
-Le renommer en `tests/` le rendrait publiquement accessible à
-`sxmdigitalagency.com/tests/…`.
+Cloudflare Pages déploie la racine du dépôt sans étape de build : tout ce
+qui est commité y est servi, **y compris les dossiers commençant par un
+point** — vérifié par requête réelle, contrairement à une idée répandue.
+
+Ce qui protège réellement ce dossier est le fichier `_redirects` à la
+racine, qui renvoie `/.tests/*` et `/tests/*` vers l'accueil en 301. Ne
+le supprimez pas sans mesurer ce que ça rouvre :
+
+    curl -o /dev/null -w '%{http_code}\n' https://sxmdigitalagency.com/.tests/gen.py
+
+Le point initial ne sert plus qu'à signaler l'intention et à garder le
+dossier hors des listings courants.
 
 Rien de ce dossier n'est utilisé par le site : celui-ci reste huit fichiers
 HTML statiques plus `assets/`, sans dépendance ni étape de build.
