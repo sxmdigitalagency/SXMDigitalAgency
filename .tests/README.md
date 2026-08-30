@@ -1,18 +1,23 @@
 # Outillage de test
 
+Le dossier commence par un point à dessein : Cloudflare Pages déploie la
+racine du dépôt sans étape de build, et n'envoie pas les dossiers cachés.
+Le renommer en `tests/` le rendrait publiquement accessible à
+`sxmdigitalagency.com/tests/…`.
+
 Rien de ce dossier n'est utilisé par le site : celui-ci reste huit fichiers
 HTML statiques plus `assets/`, sans dépendance ni étape de build.
 
 ## Installation
 
-    cd tests && npm install
+    cd .tests && npm install
 
 Seule dépendance : `jsdom`, pour exécuter le JavaScript du site hors
 navigateur.
 
 ## Lancer
 
-    tests/run.sh
+    .tests/run.sh
 
 ## Contenu
 

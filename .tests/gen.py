@@ -14,8 +14,8 @@ COMMENT LE RELANCER
     Après toute modification de l'en-tête, de la navigation, du pied de
     page ou du bouton flottant :
 
-        python3 tests/gen.py            # applique les changements
-        python3 tests/gen.py --check    # vérifie sans écrire (code 1 si écart)
+        python3 .tests/gen.py            # applique les changements
+        python3 .tests/gen.py --check    # vérifie sans écrire (code 1 si écart)
 
     Modifier UNIQUEMENT les constantes NAV, FOOTER_EXTRA, HEADER et TAIL
     ci-dessous, jamais les fragments correspondants dans les .html : ils
@@ -23,7 +23,7 @@ COMMENT LE RELANCER
 
     Le script est idempotent : le relancer sans avoir rien changé ne doit
     produire aucune différence. C'est ce que vérifie --check, et ce que
-    contrôle aussi tests/check.py.
+    contrôle aussi .tests/check.js.
 
 CE QU'IL NE FAIT PAS
     Il ne génère pas le contenu propre à chaque page (hero, sections,

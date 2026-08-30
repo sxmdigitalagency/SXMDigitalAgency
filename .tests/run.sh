@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Lance l'intégralité de l'outillage. Nécessite `npm install` dans tests/.
+# Lance l'intégralité de l'outillage. Nécessite `npm install` dans .tests/.
 set -u
 cd "$(dirname "$0")"
 
